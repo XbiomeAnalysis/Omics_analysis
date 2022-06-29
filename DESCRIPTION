@@ -1,0 +1,6 @@
+Package: WGCNAAnalysis
+Type: Book
+Title: WGCNAAnalysis
+Version: 0.0.1
+Imports: bookdown
+Remotes: HuaZou/WGCNAAnalysis
