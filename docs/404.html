@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | WGCNA analysis</title>
-  <meta name="description" content="Tutorial for WGCNA analysis" />
+  <title>Page not found | Omics analysis</title>
+  <meta name="description" content="Tutorial for OMics analysis" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | WGCNA analysis" />
+  <meta property="og:title" content="Page not found | Omics analysis" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Tutorial for WGCNA analysis" />
+  <meta property="og:description" content="Tutorial for OMics analysis" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | WGCNA analysis" />
+  <meta name="twitter:title" content="Page not found | Omics analysis" />
   
-  <meta name="twitter:description" content="Tutorial for WGCNA analysis" />
+  <meta name="twitter:description" content="Tutorial for OMics analysis" />
   
 
-<meta name="author" content="Zhengnong Zhu" />
+<meta name="author" content="Zhengnong Zhu and Yifan Zhao" />
 
 
-<meta name="date" content="2022-06-29" />
+<meta name="date" content="2022-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,12 +142,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">WGCNA analysis workflow</a></li>
+<li><a href="./">OMics analysis workflow</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> WGCNA Analysis Template</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#preface"><i class="fa fa-check"></i><b>1.1</b> Preface</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> OMics Analysis Template</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wgcna-preface"><i class="fa fa-check"></i><b>1.1</b> WGCNA Preface</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#wgcna-introduction"><i class="fa fa-check"></i><b>1.2</b> WGCNA Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#halla-introduction"><i class="fa fa-check"></i><b>1.3</b> HAllA Introduction</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="wgcna-template.html"><a href="wgcna-template.html"><i class="fa fa-check"></i><b>2</b> WGCNA template</a><ul>
 <li class="chapter" data-level="2.1" data-path="wgcna-template.html"><a href="wgcna-template.html#load-package"><i class="fa fa-check"></i><b>2.1</b> load package</a></li>
@@ -171,6 +172,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8" data-path="wgcna-template.html"><a href="wgcna-template.html#visualization-network"><i class="fa fa-check"></i><b>2.8</b> Visualization network</a></li>
 <li class="chapter" data-level="2.9" data-path="wgcna-template.html"><a href="wgcna-template.html#session-info"><i class="fa fa-check"></i><b>2.9</b> Session Info</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="halla-tutorial.html"><a href="halla-tutorial.html"><i class="fa fa-check"></i><b>3</b> Halla tutorial</a><ul>
+<li class="chapter" data-level="3.1" data-path="halla-tutorial.html"><a href="halla-tutorial.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="halla-tutorial.html"><a href="halla-tutorial.html#halla-步骤"><i class="fa fa-check"></i><b>3.2</b> HAllA 步骤</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="halla-tutorial.html"><a href="halla-tutorial.html#登102集群-执行下述步骤"><i class="fa fa-check"></i><b>3.2.1</b> 登102集群: 执行下述步骤</a></li>
+<li class="chapter" data-level="3.2.2" data-path="halla-tutorial.html"><a href="halla-tutorial.html#available-pairwise-distance-metrics"><i class="fa fa-check"></i><b>3.2.2</b> Available pairwise distance metrics:</a></li>
+<li class="chapter" data-level="3.2.3" data-path="halla-tutorial.html"><a href="halla-tutorial.html#running-procedures"><i class="fa fa-check"></i><b>3.2.3</b> Running procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="halla-tutorial.html"><a href="halla-tutorial.html#结果展示"><i class="fa fa-check"></i><b>3.3</b> 结果展示</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -183,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WGCNA analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Omics analysis</a>
           </h1>
         </div>
 
@@ -234,7 +244,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/XbiomeAnalysis/WGCNAAnalysis/blob/main/%s",
+"link": "https://github.com/XbiomeAnalysis/OMicsAnalysis/blob/main/%s",
 "text": "Edit"
 },
 "history": {
@@ -245,7 +255,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["WGCNA analysis workflow.pdf", "WGCNA analysis workflow.epub"],
+"download": ["OMics analysis workflow.pdf", "OMics analysis workflow.epub"],
 "search": {
 "engine": "fuse",
 "options": null

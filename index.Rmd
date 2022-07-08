@@ -1,6 +1,6 @@
 --- 
-title: "WGCNA analysis"
-author: "Zhengnong Zhu"
+title: "Omics analysis"
+author: "Zhengnong Zhu and Yifan Zhao"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,19 +9,26 @@ bibliography: [assets/book.bib, assets/packages.bib]
 biblio-style: apalike
 link-citations: yes
 always_allow_html: true
-description: "Tutorial for WGCNA analysis"
+description: "Tutorial for OMics analysis"
 ---
 
-# WGCNA Analysis Template
+# OMics Analysis Template
 
-## Preface
+## WGCNA Preface
 
 In this book, we will introduce an method of multi-omics association analysis, entitled WGCNA. We will introduce usage and principle of WGCNA. Moreover, we will utilize GVHD data to illustate pipelines of WGCNA.
 
-## Introduction
+## WGCNA Introduction
 
 Correlation networks are increasingly being used in bioinformatics applications. For example, weighted gene co-expression network analysis is a systems biology method for describing the correlation patterns among genes across microarray samples. Weighted correlation network analysis (WGCNA) can be used for finding clusters (modules) of highly correlated genes, for summarizing such clusters using the module eigengene or an intramodular hub gene, for relating modules to one another and to external sample traits (using eigengene network methodology), and for calculating module membership measures. Correlation networks facilitate network based gene screening methods that can be used to identify candidate biomarkers or therapeutic targets. These methods have been successfully applied in various biological contexts, e.g. cancer, mouse genetics, yeast genetics, and analysis of brain imaging data. While parts of the correlation network methodology have been described in separate publications, there is a need to provide a user-friendly, comprehensive, and consistent software implementation and an accompanying tutorial.
 
 The WGCNA R software package is a comprehensive collection of R functions for performing various aspects of weighted correlation network analysis. The package includes functions for network construction, module detection, gene selection, calculations of topological properties, data simulation, visualization, and interfacing with external software. Along with the R package we also present R software tutorials. While the methods development was motivated by gene expression data, the underlying data mining approach can be applied to a variety of different settings.
 
 [WGCNA source](https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/)
+
+
+## HAllA Introduction
+
+HAllA (Hierarchical All-against-All association) 是一个针对多维度、异质型数据集的多重关联分析工具。可用于连续型/分类型数值数据，且在同质型（homogeneous）数据集（所有数值皆相同类型，例如：RNA-seq 基因表現）与异质型（heterogeneous）数据集（不同单位或类型的数值，例如：病患临床指标）皆可高效分析。在目前微生物研究中，HAllA是一個常用于微生物组-代谢、微生物组-临床指标、微生物组-转录组（基因表現、miRNA、GO） 等关联分析的重要工具。
+
+[HAllA source](https://huttenhower.sph.harvard.edu/halla)

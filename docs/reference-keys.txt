@@ -1,6 +1,7 @@
-wgcna-analysis-template
-preface
-introduction
+omics-analysis-template
+wgcna-preface
+wgcna-introduction
+halla-introduction
 wgcna-template
 load-package
 load-data
@@ -21,3 +22,10 @@ correlate-modules-from-metabolic-and-metagenomics.
 combine-heatmaps
 visualization-network
 session-info
+halla-tutorial
+introduction
+halla-步骤
+登102集群-执行下述步骤
+available-pairwise-distance-metrics
+running-procedures
+结果展示

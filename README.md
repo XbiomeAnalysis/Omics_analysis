@@ -1,7 +1,7 @@
-# Tutorial for funcitonal analysis
+# Tutorial for Omics Analysis 
 
 
-This is a tutorial for functional analysis.
+This is a tutorial for Omics Analysis.
 
 
 

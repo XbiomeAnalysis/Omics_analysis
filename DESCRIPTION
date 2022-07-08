@@ -1,6 +1,6 @@
-Package: WGCNAAnalysis
+Package: OmicsAnalysis
 Type: Book
-Title: WGCNAAnalysis
+Title: OmicsAnalysis
 Version: 0.0.1
 Imports: bookdown
-Remotes: HuaZou/WGCNAAnalysis
+Remotes: HuaZou/OmicsAnalysis
