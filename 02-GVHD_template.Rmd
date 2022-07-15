@@ -1,7 +1,10 @@
-# WGCNA template
+# 实例展示
 
+	项目介绍：GVHD数据，有32个样本，测了宏基因组，16S和代谢数据。
 
-## load package
+## WGCNA demo
+
+### load package
 ```{r message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -15,18 +18,18 @@ library(DT)
 options(stringsAsFactors = FALSE)
 ```
 
-## load data
+### load data
 
 - metagenomics
 - metabolic
 - metadata
 
 ```{r}
-mgs_profile <- read.table("/home/xuxiaomin/project/NanFangHospitalGvHD/02.MGS_output/metaphlan2_merged.tsv", header = TRUE, sep = "\t") # read metagenomic hirerachy table，only need ID column
-metabolites_level <- read.xlsx("/home/zhaoyifan/zhaoyifan_Xbiome1/project/GVHD/metabolites_TM/ALL_sample_data.xlsx", sheetIndex = 1) # read metabolic hirerachy table
-mgs <- read.table("/home/zhaoyifan/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metagenomics.txt", header = TRUE, sep = "\t") # read metagenomic species level data
-metabolites_data <- read.table("/home/zhaoyifan/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metabolic.txt", header = TRUE, sep = "\t") # read metabolic data
-metadata <- read.table("/home/zhaoyifan/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metadata.txt", header = TRUE, sep = "\t") # read metadata
+mgs_profile <- read.table("/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metaphlan2_merged.tsv", header = TRUE, sep = "\t") # read metagenomic hirerachy table，only need ID column
+metabolites_level <- read.xlsx("/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/ALL_sample_data.xlsx", sheetIndex = 1) # read metabolic hirerachy table
+mgs <- read.table("/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metagenomics.txt", header = TRUE, sep = "\t") # read metagenomic species level data
+metabolites_data <- read.table("/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metabolic.txt", header = TRUE, sep = "\t") # read metabolic data
+metadata <- read.table("/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metadata.txt", header = TRUE, sep = "\t") # read metadata
 ```
 
 * mgs_profile need taxanomy level column, as shwon in the table below
@@ -45,7 +48,7 @@ mgs species: row names are Features, column names are Sample
 
 metabolites_data: row names are Features, column names are Sample
 
-## restructured the hierarchy table
+### restructured the hierarchy table
 
 ```{r}
 # taxa hierarchy table
@@ -60,16 +63,16 @@ metabolites_level <- metabolites_level %>% select(Index, Class.I, Class.II)
 metabolites_level <- metabolites_level %>% column_to_rownames("Index")
 ```
 
-## mgs standardization
+### mgs standardization
 
-### check data format
+#### check data format
 
 ```{r}
 cat("[mgs]", paste(c("Feature: ", "Sample: "), dim(mgs)))
 cat("[metabolites]", paste0(c("Feature: ", "Sample: "), dim(metabolites_data)))
 ```
 
-### using CSS method
+#### using CSS method
 
 ```{r}
 data.metagenomeSeq <- metagenomeSeq::newMRexperiment(mgs) # Variables as rows, samples as columns
@@ -80,13 +83,13 @@ mgs <- metagenomeSeq::MRcounts(data.cumnorm, norm=TRUE, log=TRUE) # log here is 
 dim(mgs)
 ```
 
-## mgs constructe module
+### mgs constructe module
 
 ```{r}
 mgs_t <- mgs %>% t() # Samples as rows, Features as columns
 ```
 
-### select power
+#### select power
 
 ```{r message=FALSE, warning=FALSE}
 powers <- c(1:10, seq(12,20,2)) # default
@@ -163,7 +166,7 @@ si_mc_plot
 
 The number closest to the 0.8 line is 18, and the constructed adjacency matrix most closely fits with scale-free topology. Therefore power is `r st`.
 
-### Block-wise network construction and module detection
+#### Block-wise network construction and module detection
 
 The function `blockwiseModules` will first pre cluster with fast crude clustering method to cluster OTUs into blocks not exceeding the maximum, blocks may therefore not be fully optimal in the end.
 
@@ -201,7 +204,7 @@ if(Run_analysis){
 }
 ```
 
-### mgs module details
+#### mgs module details
 
 ```{r}
 # Convert labels to colors for plotting
@@ -412,13 +415,13 @@ dplyr::left_join(hubOTUs,
 hubOTUs %>% datatable()
 ```
 
-## metabolites constructe module
+### metabolites constructe module
 
 ```{r}
 metabolites_t <- metabolites_data %>% t()
 ```
 
-### select power
+#### select power
 
 ```{r message=FALSE, warning=FALSE}
 powers <- c(1:10, seq(12,20,2))
@@ -495,7 +498,7 @@ si_mc_plot
 
 The power is `r st`
 
-### Block-wise network construction and module detection
+#### Block-wise network construction and module detection
 
 The function `blockwiseModules` will first pre cluster with fast crude clustering method to cluster OTUs into blocks not exceeding the maximum, blocks may therefore not be fully optimal in the end.
 
@@ -528,7 +531,7 @@ if(Run_analysis){
 }
 ```
 
-### metabolites module details
+#### metabolites module details
 
 ```{r}
 # Convert labels to colors for plotting
@@ -738,7 +741,7 @@ dplyr::left_join(hubMBS,
 hubMBS %>% datatable()
 ```
 
-## metabolites, mgs and metadata association
+### metabolites, mgs and metadata association
 
 ```{r}
 X_eigengenes <- modules.metabolites$MEs # X_eigengenes is metabolic
@@ -792,7 +795,7 @@ pheatmap::pheatmap(X_eigengenes_to_plot,
                    main = paste("Metabolites Module 'expression'\n")) -> X_plot
 ```
 
-#### Correlate modules from metabolic and metagenomics.
+##### Correlate modules from metabolic and metagenomics.
 
 ```{r}
 p.value_matr <- corr.value_matr <- matrix(ncol = ncol(Y_eigengenes), 
@@ -855,7 +858,7 @@ pheatmap::pheatmap(Y_corr_X$correlation,
                    main = "EigenOTUs") -> Y_corr_X_plot
 ```
 
-#### Combine heatmaps
+##### Combine heatmaps
 
 ```{r}
 cowplot::plot_grid(Y_corr_X_plot$gtable,
@@ -866,7 +869,7 @@ cowplot::plot_grid(Y_corr_X_plot$gtable,
                    align = "h") + ggplot2::theme(plot.margin = ggplot2::unit(c(3,0,2.5,1), "cm"))
 ```
 
-## Visualization network
+### Visualization network
 
 The strong correlation between mgME3 and mbME1 is the modules of interest, and we wondered if they contain those bacteria and metabolites, which ara published in the existing literature, or if there is a potential mining value.
 
@@ -1126,9 +1129,39 @@ par(mfrow = c(1,1))
 ```
 
 
-## Session Info
+### Session Info
 
 ```{r}
 devtools::session_info()
 ```
 
+
+
+## HAllA demo
+
+### 登102集群: 执行下述步骤
+
+```bash
+
+conda activate /opt/conda/envs/Halla
+
+halla -h
+
+halla -x table_X -y table_Y -m correlation_methods -o output_file --fdr_alpha adjustP --fdr_method FDR_methods
+
+```
+
+### 结果展示
+
+#### HAllA result after WGCNA
+
+![Correlation with modules](./figure/GvHD_module.png)
+
+此部分分析用的wgcna生成的宏基因组和代谢组 modules，因此在运行halla的时候需要加上 —alla 取消数据集内部cluster构建。
+以上是用五种方法进行了关联分析，得出的结果不完全一样，序号的先后顺序代表显著性的强弱(adjust p-value)。从找到的模块关系中，对应回WGCNA里的Hub物种，用作此module的关系解释。可选择感兴趣/能说明问题的图表（关联方法）进行深度挖掘。
+
+#### 常规数据集结果
+
+![Correlation with modules](./figure/HAllA_GvHD.png)
+
+此部分分析用的GvHD的宏基因组和代谢组的原始数据（spearman-correlation），热图中显著性的cluster均有数字或白点进行标注（过滤条件fdr < 0.05）；其中的数值显示是按照cluster 中最小的 adjust p-value 给定rank，序号越小，显著性越强。
