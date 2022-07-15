@@ -40,4 +40,4 @@ vignettes/*.pdf
 
 # files
 .DS_Store
-
+result/
