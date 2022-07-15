@@ -23,7 +23,7 @@
 <meta name="author" content="Zhengnong Zhu and Yifan Zhao" />
 
 
-<meta name="date" content="2022-07-08" />
+<meta name="date" content="2022-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,14 +53,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script src="libs/datatables-binding-0.14/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -145,41 +145,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">OMics analysis workflow</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> OMics Analysis Template</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wgcna-preface"><i class="fa fa-check"></i><b>1.1</b> WGCNA Preface</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#wgcna-introduction"><i class="fa fa-check"></i><b>1.2</b> WGCNA Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#halla-introduction"><i class="fa fa-check"></i><b>1.3</b> HAllA Introduction</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Omics Analysis Template</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wgcna-introduction"><i class="fa fa-check"></i><b>1.1</b> WGCNA Introduction</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#wgcna-步骤"><i class="fa fa-check"></i><b>1.1.1</b> WGCNA 步骤</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="wgcna-template.html"><a href="wgcna-template.html"><i class="fa fa-check"></i><b>2</b> WGCNA template</a><ul>
-<li class="chapter" data-level="2.1" data-path="wgcna-template.html"><a href="wgcna-template.html#load-package"><i class="fa fa-check"></i><b>2.1</b> load package</a></li>
-<li class="chapter" data-level="2.2" data-path="wgcna-template.html"><a href="wgcna-template.html#load-data"><i class="fa fa-check"></i><b>2.2</b> load data</a></li>
-<li class="chapter" data-level="2.3" data-path="wgcna-template.html"><a href="wgcna-template.html#restructured-the-hierarchy-table"><i class="fa fa-check"></i><b>2.3</b> restructured the hierarchy table</a></li>
-<li class="chapter" data-level="2.4" data-path="wgcna-template.html"><a href="wgcna-template.html#mgs-standardization"><i class="fa fa-check"></i><b>2.4</b> mgs standardization</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="wgcna-template.html"><a href="wgcna-template.html#check-data-format"><i class="fa fa-check"></i><b>2.4.1</b> check data format</a></li>
-<li class="chapter" data-level="2.4.2" data-path="wgcna-template.html"><a href="wgcna-template.html#using-css-method"><i class="fa fa-check"></i><b>2.4.2</b> using CSS method</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#halla-introduction"><i class="fa fa-check"></i><b>1.2</b> HAllA Introduction</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#available-pairwise-distance-metrics"><i class="fa fa-check"></i><b>1.2.1</b> Available pairwise distance metrics:</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#running-procedures"><i class="fa fa-check"></i><b>1.2.2</b> Running procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="wgcna-template.html"><a href="wgcna-template.html#mgs-constructe-module"><i class="fa fa-check"></i><b>2.5</b> mgs constructe module</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="wgcna-template.html"><a href="wgcna-template.html#select-power"><i class="fa fa-check"></i><b>2.5.1</b> select power</a></li>
-<li class="chapter" data-level="2.5.2" data-path="wgcna-template.html"><a href="wgcna-template.html#block-wise-network-construction-and-module-detection"><i class="fa fa-check"></i><b>2.5.2</b> Block-wise network construction and module detection</a></li>
-<li class="chapter" data-level="2.5.3" data-path="wgcna-template.html"><a href="wgcna-template.html#mgs-module-details"><i class="fa fa-check"></i><b>2.5.3</b> mgs module details</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="wgcna-template.html"><a href="wgcna-template.html#metabolites-constructe-module"><i class="fa fa-check"></i><b>2.6</b> metabolites constructe module</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="wgcna-template.html"><a href="wgcna-template.html#select-power-1"><i class="fa fa-check"></i><b>2.6.1</b> select power</a></li>
-<li class="chapter" data-level="2.6.2" data-path="wgcna-template.html"><a href="wgcna-template.html#block-wise-network-construction-and-module-detection-1"><i class="fa fa-check"></i><b>2.6.2</b> Block-wise network construction and module detection</a></li>
-<li class="chapter" data-level="2.6.3" data-path="wgcna-template.html"><a href="wgcna-template.html#metabolites-module-details"><i class="fa fa-check"></i><b>2.6.3</b> metabolites module details</a></li>
+<li class="chapter" data-level="2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html"><i class="fa fa-check"></i><b>2</b> 利用WGCNA构建网络</a><ul>
+<li class="chapter" data-level="2.1" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#s-测序数据"><i class="fa fa-check"></i><b>2.1</b> 16S 测序数据</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#输入数据格式"><i class="fa fa-check"></i><b>2.1.1</b> 输入数据格式</a></li>
+<li class="chapter" data-level="2.1.2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#构建network"><i class="fa fa-check"></i><b>2.1.2</b> 构建network</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="wgcna-template.html"><a href="wgcna-template.html#metabolites-mgs-and-metadata-association"><i class="fa fa-check"></i><b>2.7</b> metabolites, mgs and metadata association</a></li>
-<li class="chapter" data-level="2.8" data-path="wgcna-template.html"><a href="wgcna-template.html#visualization-network"><i class="fa fa-check"></i><b>2.8</b> Visualization network</a></li>
-<li class="chapter" data-level="2.9" data-path="wgcna-template.html"><a href="wgcna-template.html#session-info"><i class="fa fa-check"></i><b>2.9</b> Session Info</a></li>
+<li class="chapter" data-level="2.2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#宏基因组测序数据"><i class="fa fa-check"></i><b>2.2</b> 宏基因组测序数据</a></li>
+<li class="chapter" data-level="2.3" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#代谢数据"><i class="fa fa-check"></i><b>2.3</b> 代谢数据</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="halla-tutorial.html"><a href="halla-tutorial.html"><i class="fa fa-check"></i><b>3</b> Halla tutorial</a><ul>
-<li class="chapter" data-level="3.1" data-path="halla-tutorial.html"><a href="halla-tutorial.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="halla-tutorial.html"><a href="halla-tutorial.html#halla-步骤"><i class="fa fa-check"></i><b>3.2</b> HAllA 步骤</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="halla-tutorial.html"><a href="halla-tutorial.html#登102集群-执行下述步骤"><i class="fa fa-check"></i><b>3.2.1</b> 登102集群: 执行下述步骤</a></li>
-<li class="chapter" data-level="3.2.2" data-path="halla-tutorial.html"><a href="halla-tutorial.html#available-pairwise-distance-metrics"><i class="fa fa-check"></i><b>3.2.2</b> Available pairwise distance metrics:</a></li>
-<li class="chapter" data-level="3.2.3" data-path="halla-tutorial.html"><a href="halla-tutorial.html#running-procedures"><i class="fa fa-check"></i><b>3.2.3</b> Running procedures</a></li>
+<li class="chapter" data-level="3" data-path="实例展示.html"><a href="实例展示.html"><i class="fa fa-check"></i><b>3</b> 实例展示</a><ul>
+<li class="chapter" data-level="3.1" data-path="实例展示.html"><a href="实例展示.html#wgcna-demo"><i class="fa fa-check"></i><b>3.1</b> WGCNA demo</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="实例展示.html"><a href="实例展示.html#load-package"><i class="fa fa-check"></i><b>3.1.1</b> load package</a></li>
+<li class="chapter" data-level="3.1.2" data-path="实例展示.html"><a href="实例展示.html#load-data"><i class="fa fa-check"></i><b>3.1.2</b> load data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="实例展示.html"><a href="实例展示.html#restructured-the-hierarchy-table"><i class="fa fa-check"></i><b>3.1.3</b> restructured the hierarchy table</a></li>
+<li class="chapter" data-level="3.1.4" data-path="实例展示.html"><a href="实例展示.html#mgs-standardization"><i class="fa fa-check"></i><b>3.1.4</b> mgs standardization</a></li>
+<li class="chapter" data-level="3.1.5" data-path="实例展示.html"><a href="实例展示.html#mgs-constructe-module"><i class="fa fa-check"></i><b>3.1.5</b> mgs constructe module</a></li>
+<li class="chapter" data-level="3.1.6" data-path="实例展示.html"><a href="实例展示.html#metabolites-constructe-module"><i class="fa fa-check"></i><b>3.1.6</b> metabolites constructe module</a></li>
+<li class="chapter" data-level="3.1.7" data-path="实例展示.html"><a href="实例展示.html#metabolites-mgs-and-metadata-association"><i class="fa fa-check"></i><b>3.1.7</b> metabolites, mgs and metadata association</a></li>
+<li class="chapter" data-level="3.1.8" data-path="实例展示.html"><a href="实例展示.html#visualization-network"><i class="fa fa-check"></i><b>3.1.8</b> Visualization network</a></li>
+<li class="chapter" data-level="3.1.9" data-path="实例展示.html"><a href="实例展示.html#session-info"><i class="fa fa-check"></i><b>3.1.9</b> Session Info</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="halla-tutorial.html"><a href="halla-tutorial.html#结果展示"><i class="fa fa-check"></i><b>3.3</b> 结果展示</a></li>
+<li class="chapter" data-level="3.2" data-path="实例展示.html"><a href="实例展示.html#halla-demo"><i class="fa fa-check"></i><b>3.2</b> HAllA demo</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="实例展示.html"><a href="实例展示.html#登102集群-执行下述步骤"><i class="fa fa-check"></i><b>3.2.1</b> 登102集群: 执行下述步骤</a></li>
+<li class="chapter" data-level="3.2.2" data-path="实例展示.html"><a href="实例展示.html#结果展示"><i class="fa fa-check"></i><b>3.2.2</b> 结果展示</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -267,6 +265,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
