@@ -1,0 +1,563 @@
+# Network Analysis
+
+## Introduction
+
+> Estimating microbial association networks from high-throughput sequencing data is a common exploratory data analysis approach aiming at understanding the complex interplay of microbial communities in their natural habitat. Statistical network estimation workflows comprise several analysis steps, including methods for zero handling, data normalization and computing microbial associations. Since microbial interactions are likely to change between conditions, e.g. between healthy individuals and patients, identifying network differences between groups is often an integral secondary analysis step. 
+
+NetCoMi (Network Construction and Comparison for Microbiome Data) [@peschel2021netcomi] provides functionality for constructing, analyzing, and comparing networks suitable for the application on microbial compositional data.
+
+The following information is from [NetCoMi github](https://github.com/stefpeschel/NetCoMi).
+
+
+**Association measures:**
+
+-   Pearson coefficient
+    ([`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor)
+    from `stats` package)
+-   Spearman coefficient
+    ([`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor)
+    from `stats` package)
+-   Biweight Midcorrelation
+    [`bicor()`](https://rdrr.io/cran/WGCNA/man/bicor.html) from `WGCNA`
+    package
+-   SparCC
+    ([`sparcc()`](https://rdrr.io/github/zdk123/SpiecEasi/man/sparcc.html)
+    from `SpiecEasi` package)
+-   CCLasso ([R code on GitHub](https://github.com/huayingfang/CCLasso))
+-   CCREPE
+    ([`ccrepe`](https://bioconductor.org/packages/release/bioc/html/ccrepe.html)
+    package)
+-   SpiecEasi ([`SpiecEasi`](https://github.com/zdk123/SpiecEasi)
+    package)
+-   SPRING ([`SPRING`](https://github.com/GraceYoon/SPRING) package)
+-   gCoda ([R code on GitHub](https://github.com/huayingfang/gCoda))
+-   propr
+    ([`propr`](https://cran.r-project.org/web/packages/propr/index.html)
+    package)
+
+**Dissimilarity measures:**
+
+-   Euclidean distance
+    ([`vegdist()`](https://www.rdocumentation.org/packages/vegan/versions/2.4-2/topics/vegdist)
+    from `vegan` package)
+-   Bray-Curtis dissimilarity
+    ([`vegdist()`](https://www.rdocumentation.org/packages/vegan/versions/2.4-2/topics/vegdist)
+    from `vegan` package)
+-   Kullback-Leibler divergence (KLD)
+    ([`KLD()`](https://rdrr.io/cran/LaplacesDemon/man/KLD.html) from
+    `LaplacesDemon` package)
+-   Jeffrey divergence (own code using
+    [`KLD()`](https://rdrr.io/cran/LaplacesDemon/man/KLD.html) from
+    `LaplacesDemon` package)
+-   Jensen-Shannon divergence (own code using
+    [`KLD()`](https://rdrr.io/cran/LaplacesDemon/man/KLD.html) from
+    `LaplacesDemon` package)
+-   Compositional KLD (own implementation following [Martín-Fernández
+    et al., 1999])
+-   Aitchison distance
+    ([`vegdist()`](https://www.rdocumentation.org/packages/vegan/versions/2.4-2/topics/vegdist)
+    and [`clr()`](https://rdrr.io/github/zdk123/SpiecEasi/man/clr.html)
+    from `SpiecEasi` package)
+
+**Methods for zero replacement:**
+
+-   Adding a predefined pseudo count
+-   Multiplicative replacement
+    ([`multRepl`](https://rdrr.io/cran/zCompositions/man/multRepl.html)
+    from `zCompositions` package)
+-   Modified EM alr-algorithm
+    ([`lrEM`](https://rdrr.io/cran/zCompositions/man/lrEM.html) from
+    `zCompositions` package)
+-   Bayesian-multiplicative replacement
+    ([`cmultRepl`](https://rdrr.io/cran/zCompositions/man/cmultRepl.html)
+    from `zCompositions` package)
+
+**Normalization methods:**
+
+-   Total Sum Scaling (TSS) (own implementation)
+-   Cumulative Sum Scaling (CSS) ([`cumNormMat`]() from `metagenomeSeq`
+    package)
+-   Common Sum Scaling (COM) (own implementation)
+-   Rarefying ([`rrarefy`]() from `vegan` package)
+-   Variance Stabilizing Transformation (VST)
+    ([`varianceStabilizingTransformation`]() from `DESeq2` package)
+-   Centered log-ratio (clr) transformation
+    ([`clr()`](https://rdrr.io/github/zdk123/SpiecEasi/man/clr.html)
+    from `SpiecEasi` package))
+
+TSS, CSS, COM, VST, and the clr transformation are described in [Badri
+et al., 2020].
+
+
+## Loading packages
+```{r}
+knitr::opts_chunk$set(warning = F)
+
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(plotly)
+library(SummarizedExperiment)
+
+# devtools::install_github("pcastellanoescuder/POMA")
+#library(POMA)
+library(ggraph)
+
+# installing package
+# devtools::install_github("stefpeschel/NetCoMi",
+#                          dependencies = c("Depends", "Imports", "LinkingTo"),
+#                          repos = c("https://cloud.r-project.org/",
+#                                    BiocManager::repositories()))
+# devtools::install_github("GraceYoon/SPRING", force = TRUE)
+# devtools::install_github("zdk123/SpiecEasi", force = TRUE)
+library(NetCoMi)
+library(SPRING)
+library(SpiecEasi)
+
+
+# rm(list = ls())
+options(stringsAsFactors = F)
+options(future.globals.maxSize = 1000 * 1024^2)
+```
+
+## Importing data
+
+The input data sets are from the previous chapter.
+```{r}
+se_filter <- readRDS("./dataset/POMA/se_filter.RDS")
+```
+
+## Data curation
+```{r}
+features_tab <- SummarizedExperiment::assay(se_filter) %>% 
+  t()
+features_tab[is.na(features_tab)] <- 0
+
+head(features_tab)
+```
+
+
+## Associations Among Features
+
+### Single network with SPRING as association measure
+
+* InputData: numeric matrix. Can be a count matrix (rows are samples, columns are Features).
+
+* Filtered criterion: 
+
+  - Only samples with a total number of reads of at least 1000 are included (argument filtSamp).
+  
+  - Only the 50 taxa with highest frequency are included (argument filtTax).
+  
+* Method to compute the associations between features (argument measure).
+  
+* Normalization method:
+
+  - normMethod: none.
+  
+  - zeroMethod: none.
+  
+  - sparsMethod: none.
+
+#### Building network model
+```{r}
+net_single <- netConstruct(features_tab,
+                           filtTax = "highestFreq",
+                           filtTaxPar = list(highestFreq = 50),
+                           filtSamp = "totalReads",
+                           filtSampPar = list(totalReads = 100),
+                           measure = "spring",
+                           measurePar = list(nlambda = 10, 
+                                             rep.num = 10),
+                           normMethod = "none", 
+                           zeroMethod = "none",
+                           sparsMethod = "none", 
+                           dissFunc = "signed",
+                           verbose = 3,
+                           seed = 123)
+```
+
+#### Analyzing the constructed network
+```{r}
+props_single <- netAnalyze(net_single, 
+                           centrLCC = TRUE,
+                           clustMethod = "cluster_fast_greedy",
+                           hubPar = "eigenvector",
+                           weightDeg = FALSE, 
+                           normDeg = FALSE)
+
+#?summary.microNetProps
+summary(props_single, numbNodes = 5L)
+```
+
+#### Visualizing the network
+```{r, fig.height=6, fig.width=8}
+plot(props_single, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     title1 = "Network on metabolomics with SPRING associations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 0.8, title = "estimated association:",
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"), 
+       bty = "n", horiz = TRUE)
+```
+
+Note that edge weights are (non-negative) similarities, however, the edges belonging to negative estimated associations are colored in red by default (negDiffCol = TRUE).
+
+
+### Single network with Pearson correlation as association measure
+
+Since Pearson correlations may lead to compositional effects when applied to sequencing data, we use the clr transformation as normalization method. Zero treatment is necessary in this case.
+
+A threshold of 0.3 is used as sparsification method, so that only OTUs with an absolute correlation greater than or equal to 0.3 are connected.
+
+
+#### Building network model
+```{r}
+net_single2 <- netConstruct(features_tab,  
+                            measure = "pearson",
+                            normMethod = "clr", 
+                            zeroMethod = "multRepl",
+                            sparsMethod = "threshold", 
+                            thresh = 0.3,
+                            verbose = 3,
+                            seed = 123)
+```
+
+#### Visualizing the network
+
+* primary plot
+```{r, fig.height=6, fig.width=8}
+props_single2 <- netAnalyze(net_single2, clustMethod = "cluster_fast_greedy")
+
+plot(props_single2, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     title1 = "Network on metabolomics with Pearson correlations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 1, title = "estimated correlation:", 
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"), 
+       bty = "n", horiz = TRUE)
+```
+
+
+* improve the visualization by changing the following arguments:
+
+  - `repulsion = 0.8`: Place the nodes further apart
+  
+  - `rmSingles = TRUE`: Single nodes are removed
+  
+  - `labelScale = FALSE` and `cexLabels = 1.6`: All labels have equal size and are enlarged to improve readability of small node’s labels
+  
+  - `nodeSizeSpread = 3` (default is 4): Node sizes are more similar if the value is decreased. This argument (in combination with `cexNodes`) is useful to enlarge small nodes while keeping the size of big nodes.
+  
+```{r, fig.height=8, fig.width=12}
+plot(props_single2, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     repulsion = 0.8,
+     rmSingles = TRUE,
+     labelScale = FALSE,
+     cexLabels = 1.6,
+     nodeSizeSpread = 3,
+     cexNodes = 2,
+     title1 = "Network on metabolomics with Pearson correlations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 1.2, title = "estimated correlation:",
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"),
+       bty = "n", horiz = TRUE)
+```
+
+
+### Single network with SpiecEasi correlation as association measure
+
+- Only the 50 features with highest variance are selected.
+
+- Only samples with a total number of reads of at least 100 included.
+
+
+#### Building network model
+```{r}
+net_single3 <- netConstruct(features_tab, 
+                            measure = "spieceasi",
+                            measurePar = list(method = "mb",
+                                              pulsar.params = list(rep.num = 10),
+                                              symBetaMode = "ave"),
+                            filtTax = "highestVar",
+                            filtTaxPar = list(highestVar = 50),
+                            filtSamp = "totalReads",
+                            filtSampPar = list(totalReads = 100),
+                            verbose = 3,
+                            seed = 123)
+```
+
+
+#### Visualizing the network
+```{r, fig.height=8, fig.width=12}
+props_single3 <- netAnalyze(net_single3, clustMethod = "cluster_fast_greedy")
+
+plot(props_single3, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     repulsion = 0.8,
+     rmSingles = TRUE,
+     labelScale = FALSE,
+     cexLabels = 1.6,
+     nodeSizeSpread = 3,
+     cexNodes = 2,
+     title1 = "Network on metabolomics with SpiecEasi correlations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 1.2, title = "estimated correlation:",
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"),
+       bty = "n", horiz = TRUE)
+```
+
+
+
+### Single network with WGCNA (bicor) as association measure
+
+
+Biweight Midcorrelation `bicor()` from WGCNA package.
+
+#### Building network model
+```{r}
+net_single4 <- netConstruct(features_tab, 
+                           measure = "bicor",
+                           measurePar = list(use = "all.obs",
+                                             maxPOutliers = 1,
+                                             nThreads = 2),
+                           filtTax = "highestVar",
+                           filtTaxPar = list(highestVar = 50),
+                           filtSamp = "totalReads",
+                           filtSampPar = list(totalReads = 100),
+                           dissFunc = "TOMdiss",
+                           verbose = 3)
+```
+
+#### Visualizing the network
+```{r, fig.height=8, fig.width=12}
+props_single4 <- netAnalyze(net_single4, clustMethod = "cluster_fast_greedy")
+
+plot(props_single4, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     repulsion = 0.8,
+     rmSingles = TRUE,
+     labelScale = FALSE,
+     cexLabels = 1.6,
+     nodeSizeSpread = 3,
+     cexNodes = 2,
+     title1 = "Network on metabolomics with WGCNA correlations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 1.2, title = "estimated correlation:",
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"),
+       bty = "n", horiz = TRUE)
+```
+
+
+### Single network with sparcc correlation as association measure
+
+- Only the 40 features with highest variance are selected.
+
+- Only samples with a total number of reads of at least 100 included.
+
+
+#### Building network model
+```{r}
+net_single5 <- netConstruct(features_tab, 
+                           measure = "sparcc",
+                           measurePar = list(iter = 20,
+                                             inner_iter = 10,
+                                             th = 0.1),
+                           filtTax = "highestVar",
+                           filtTaxPar = list(highestVar = 50),
+                           filtSamp = "totalReads",
+                           filtSampPar = list(totalReads = 100),
+                           verbose = 3,
+                           seed = 123)
+```
+
+#### Visualizing the network
+```{r, fig.height=8, fig.width=12}
+props_single5 <- netAnalyze(net_single5, clustMethod = "cluster_fast_greedy")
+
+plot(props_single5, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     repulsion = 0.8,
+     rmSingles = TRUE,
+     labelScale = FALSE,
+     cexLabels = 1.6,
+     nodeSizeSpread = 3,
+     cexNodes = 2,
+     title1 = "Network on metabolomics with sparcc correlations", 
+     showTitle = TRUE,
+     cexTitle = 1.5)
+
+legend(0.7, 1.1, cex = 1.2, title = "estimated correlation:",
+       legend = c("+","-"), lty = 1, lwd = 3, col = c("#009900","red"),
+       bty = "n", horiz = TRUE)
+```
+
+
+## Dissimilarity-based Networks
+
+> If a dissimilarity measure is used for network construction, nodes are subjects instead of OTUs. The estimated dissimilarities are transformed into similarities, which are used as edge weights so that subjects with a similar microbial composition are placed close together in the network plot.
+
+> We construct a single network using Aitchison’s distance being suitable for the application on compositional data.
+
+> Since the Aitchison distance is based on the clr-transformation, zeros in the data need to be replaced.
+
+> The network is sparsified using the k-nearest neighbor (knn) algorithm.
+
+### Building network module
+```{r}
+net_aitchison <- netConstruct(features_tab,
+                              measure = "aitchison",
+                              zeroMethod = "multRepl",
+                              sparsMethod = "knn", 
+                              kNeighbor = 3,
+                              verbose = 3)
+```
+
+### Visualizing the network
+```{r, fig.height=8, fig.width=12}
+props_aitchison <- netAnalyze(net_aitchison,
+                              clustMethod = "hierarchical",
+                              clustPar = list(method = "average", k = 3),
+                              hubPar = "eigenvector")
+
+plot(props_aitchison, 
+     nodeColor = "cluster", 
+     nodeSize = "eigenvector",
+     repulsion = 0.8,
+     rmSingles = TRUE,
+     labelScale = FALSE,
+     cexLabels = 1.6,
+     nodeSizeSpread = 3,
+     cexNodes = 1.5,
+     title1 = "Network on metabolomics with Aitchison distance", 
+     showTitle = TRUE,
+     cexTitle = 1.5,
+     hubTransp = 50,
+     edgeTranspLow = 60,
+     charToRm = "00000",
+     mar = c(1, 3, 3, 5))
+
+# plot(props_aitchison, 
+#      nodeColor = "cluster", 
+#      nodeSize = "eigenvector",
+#      hubTransp = 50,
+#      edgeTranspLow = 60,
+#      charToRm = "00000",
+#      mar = c(1, 3, 3, 5))
+
+# get green color with 50% transparency
+green2 <- colToTransp("#009900", 40)
+
+legend(0.4, 1.1,
+       cex = 1.5,
+       legend = c("high similarity (low Aitchison distance)",
+                  "low similarity (high Aitchison distance)"), 
+       lty = 1, 
+       lwd = c(3, 1),
+       col = c("darkgreen", green2),
+       bty = "n")
+```
+
+## Network comparison
+
+Comparing two networks by **NetCoMi**.
+
+### Data preparing
+```{r}
+group_names <- c("Mild", "Severe")
+
+se_filter_subset <- se_filter[, se_filter$group %in% group_names]
+se_filter_subset$group <- factor(as.character(se_filter_subset$group))
+features_tab <- SummarizedExperiment::assay(se_filter_subset) %>% 
+  t()
+features_tab[is.na(features_tab)] <- 0
+
+group_vector <- se_filter_subset$group
+```
+
+### Building network model
+```{r}
+net_group <- netConstruct(features_tab, 
+                          group = group_vector, 
+                          measure = "pearson",
+                          normMethod = "clr", 
+                          zeroMethod = "multRepl",
+                          sparsMethod = "threshold", 
+                          thresh = 0.3,
+                          verbose = 3,
+                          seed = 123)
+```
+
+### Network analysis
+```{r}
+props_group <- netAnalyze(net_group, 
+                          centrLCC = FALSE,
+                          avDissIgnoreInf = TRUE,
+                          sPathNorm = FALSE,
+                          clustMethod = "cluster_fast_greedy",
+                          hubPar = c("degree", "between", "closeness"),
+                          hubQuant = 0.9,
+                          lnormFit = TRUE,
+                          normDeg = FALSE,
+                          normBetw = FALSE,
+                          normClose = FALSE,
+                          normEigen = FALSE)
+
+summary(props_group)
+```
+
+
+### Visualizing the network
+```{r, fig.height=10, fig.width=20}
+plot(props_group, 
+     sameLayout = TRUE, 
+     layoutGroup = 1,
+     rmSingles = "inboth", 
+     nodeSize = "mclr", 
+     labelScale = FALSE,
+     cexNodes = 1, 
+     cexLabels = 1.5,
+     cexHubLabels = 2,
+     cexTitle = 2,
+     groupNames = group_names,
+     hubBorderCol  = "gray40")
+
+legend("bottom", title = "estimated association:", legend = c("+", "-"), 
+       col = c("#009900","red"), inset = 0.04, cex = 3, lty = 1, lwd = 4, 
+       bty = "n", horiz = TRUE)
+```
+
+
+### Quantitative network comparison
+```{r}
+comp_group <- netCompare(props_group, permTest = FALSE, verbose = FALSE)
+
+summary(comp_group, 
+        groupNames = group_names,
+        showCentr = c("degree", "between", "closeness"), 
+        numbNodes = 5)
+```
+
+
+## Systematic Information
+```{r}
+devtools::session_info()
+```
+

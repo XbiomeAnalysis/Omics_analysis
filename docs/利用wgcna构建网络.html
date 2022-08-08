@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 利用WGCNA构建网络 | Omics analysis</title>
+  <meta name="description" content="Tutorial for OMics analysis" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 利用WGCNA构建网络 | Omics analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Tutorial for OMics analysis" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 利用WGCNA构建网络 | Omics analysis" />
+  
+  <meta name="twitter:description" content="Tutorial for OMics analysis" />
+  
+
+<meta name="author" content="Zhengnong Zhu, Yifan Zhao and Hua Zou" />
+
+
+<meta name="date" content="2022-08-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="实例展示.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">OMics Data Analysis </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Omics Analysis</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wgcna-introduction"><i class="fa fa-check"></i><b>1.1</b> WGCNA Introduction</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#wgcna-步骤"><i class="fa fa-check"></i><b>1.1.1</b> WGCNA 步骤</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#halla-introduction"><i class="fa fa-check"></i><b>1.2</b> HAllA Introduction</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#available-pairwise-distance-metrics"><i class="fa fa-check"></i><b>1.2.1</b> Available pairwise distance metrics:</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#running-procedures"><i class="fa fa-check"></i><b>1.2.2</b> Running procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#network-analysis"><i class="fa fa-check"></i><b>1.3</b> Network Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html"><i class="fa fa-check"></i><b>2</b> 利用WGCNA构建网络</a><ul>
+<li class="chapter" data-level="2.1" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#s-测序数据"><i class="fa fa-check"></i><b>2.1</b> 16S 测序数据</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#输入数据格式"><i class="fa fa-check"></i><b>2.1.1</b> 输入数据格式</a></li>
+<li class="chapter" data-level="2.1.2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#构建network"><i class="fa fa-check"></i><b>2.1.2</b> 构建network</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#宏基因组测序数据"><i class="fa fa-check"></i><b>2.2</b> 宏基因组测序数据</a></li>
+<li class="chapter" data-level="2.3" data-path="利用wgcna构建网络.html"><a href="利用wgcna构建网络.html#代谢数据"><i class="fa fa-check"></i><b>2.3</b> 代谢数据</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="实例展示.html"><a href="实例展示.html"><i class="fa fa-check"></i><b>3</b> 实例展示</a><ul>
+<li class="chapter" data-level="3.1" data-path="实例展示.html"><a href="实例展示.html#wgcna-demo"><i class="fa fa-check"></i><b>3.1</b> WGCNA demo</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="实例展示.html"><a href="实例展示.html#load-package"><i class="fa fa-check"></i><b>3.1.1</b> load package</a></li>
+<li class="chapter" data-level="3.1.2" data-path="实例展示.html"><a href="实例展示.html#load-data"><i class="fa fa-check"></i><b>3.1.2</b> load data</a></li>
+<li class="chapter" data-level="3.1.3" data-path="实例展示.html"><a href="实例展示.html#restructured-the-hierarchy-table"><i class="fa fa-check"></i><b>3.1.3</b> restructured the hierarchy table</a></li>
+<li class="chapter" data-level="3.1.4" data-path="实例展示.html"><a href="实例展示.html#mgs-standardization"><i class="fa fa-check"></i><b>3.1.4</b> mgs standardization</a></li>
+<li class="chapter" data-level="3.1.5" data-path="实例展示.html"><a href="实例展示.html#mgs-constructe-module"><i class="fa fa-check"></i><b>3.1.5</b> mgs constructe module</a></li>
+<li class="chapter" data-level="3.1.6" data-path="实例展示.html"><a href="实例展示.html#metabolites-constructe-module"><i class="fa fa-check"></i><b>3.1.6</b> metabolites constructe module</a></li>
+<li class="chapter" data-level="3.1.7" data-path="实例展示.html"><a href="实例展示.html#metabolites-mgs-and-metadata-association"><i class="fa fa-check"></i><b>3.1.7</b> metabolites, mgs and metadata association</a></li>
+<li class="chapter" data-level="3.1.8" data-path="实例展示.html"><a href="实例展示.html#visualization-network"><i class="fa fa-check"></i><b>3.1.8</b> Visualization network</a></li>
+<li class="chapter" data-level="3.1.9" data-path="实例展示.html"><a href="实例展示.html#session-info"><i class="fa fa-check"></i><b>3.1.9</b> Session Info</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="实例展示.html"><a href="实例展示.html#halla-demo"><i class="fa fa-check"></i><b>3.2</b> HAllA demo</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="实例展示.html"><a href="实例展示.html#登102集群-执行下述步骤"><i class="fa fa-check"></i><b>3.2.1</b> 登102集群: 执行下述步骤</a></li>
+<li class="chapter" data-level="3.2.2" data-path="实例展示.html"><a href="实例展示.html#结果展示"><i class="fa fa-check"></i><b>3.2.2</b> 结果展示</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="network-analysis-1.html"><a href="network-analysis-1.html"><i class="fa fa-check"></i><b>4</b> Network Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#loading-packages"><i class="fa fa-check"></i><b>4.2</b> Loading packages</a></li>
+<li class="chapter" data-level="4.3" data-path="network-analysis-1.html"><a href="network-analysis-1.html#importing-data"><i class="fa fa-check"></i><b>4.3</b> Importing data</a></li>
+<li class="chapter" data-level="4.4" data-path="network-analysis-1.html"><a href="network-analysis-1.html#data-curation"><i class="fa fa-check"></i><b>4.4</b> Data curation</a></li>
+<li class="chapter" data-level="4.5" data-path="network-analysis-1.html"><a href="network-analysis-1.html#associations-among-features"><i class="fa fa-check"></i><b>4.5</b> Associations Among Features</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#single-network-with-spring-as-association-measure"><i class="fa fa-check"></i><b>4.5.1</b> Single network with SPRING as association measure</a></li>
+<li class="chapter" data-level="4.5.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#single-network-with-pearson-correlation-as-association-measure"><i class="fa fa-check"></i><b>4.5.2</b> Single network with Pearson correlation as association measure</a></li>
+<li class="chapter" data-level="4.5.3" data-path="network-analysis-1.html"><a href="network-analysis-1.html#single-network-with-spieceasi-correlation-as-association-measure"><i class="fa fa-check"></i><b>4.5.3</b> Single network with SpiecEasi correlation as association measure</a></li>
+<li class="chapter" data-level="4.5.4" data-path="network-analysis-1.html"><a href="network-analysis-1.html#single-network-with-wgcna-bicor-as-association-measure"><i class="fa fa-check"></i><b>4.5.4</b> Single network with WGCNA (bicor) as association measure</a></li>
+<li class="chapter" data-level="4.5.5" data-path="network-analysis-1.html"><a href="network-analysis-1.html#single-network-with-sparcc-correlation-as-association-measure"><i class="fa fa-check"></i><b>4.5.5</b> Single network with sparcc correlation as association measure</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="network-analysis-1.html"><a href="network-analysis-1.html#dissimilarity-based-networks"><i class="fa fa-check"></i><b>4.6</b> Dissimilarity-based Networks</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#building-network-module"><i class="fa fa-check"></i><b>4.6.1</b> Building network module</a></li>
+<li class="chapter" data-level="4.6.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-5"><i class="fa fa-check"></i><b>4.6.2</b> Visualizing the network</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="network-analysis-1.html"><a href="network-analysis-1.html#network-comparison"><i class="fa fa-check"></i><b>4.7</b> Network comparison</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#data-preparing"><i class="fa fa-check"></i><b>4.7.1</b> Data preparing</a></li>
+<li class="chapter" data-level="4.7.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#building-network-model-5"><i class="fa fa-check"></i><b>4.7.2</b> Building network model</a></li>
+<li class="chapter" data-level="4.7.3" data-path="network-analysis-1.html"><a href="network-analysis-1.html#network-analysis-2"><i class="fa fa-check"></i><b>4.7.3</b> Network analysis</a></li>
+<li class="chapter" data-level="4.7.4" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-6"><i class="fa fa-check"></i><b>4.7.4</b> Visualizing the network</a></li>
+<li class="chapter" data-level="4.7.5" data-path="network-analysis-1.html"><a href="network-analysis-1.html#quantitative-network-comparison"><i class="fa fa-check"></i><b>4.7.5</b> Quantitative network comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="network-analysis-1.html"><a href="network-analysis-1.html#systematic-information"><i class="fa fa-check"></i><b>4.8</b> Systematic Information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Omics analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="利用wgcna构建网络" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 2</span> 利用WGCNA构建网络<a href="利用wgcna构建网络.html#利用wgcna构建网络" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="利用wgcna构建网络.html#cb2-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="利用wgcna构建网络.html#cb2-2"></a><span class="kw">library</span>(xlsx)</span>
+<span id="cb2-3"><a href="利用wgcna构建网络.html#cb2-3"></a><span class="kw">library</span>(WGCNA)</span>
+<span id="cb2-4"><a href="利用wgcna构建网络.html#cb2-4"></a><span class="kw">library</span>(igraph)</span>
+<span id="cb2-5"><a href="利用wgcna构建网络.html#cb2-5"></a><span class="kw">library</span>(phyloseq)</span>
+<span id="cb2-6"><a href="利用wgcna构建网络.html#cb2-6"></a><span class="kw">library</span>(DT)</span>
+<span id="cb2-7"><a href="利用wgcna构建网络.html#cb2-7"></a></span>
+<span id="cb2-8"><a href="利用wgcna构建网络.html#cb2-8"></a><span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div id="s-测序数据" class="section level2 hasAnchor">
+<h2><span class="header-section-number">2.1</span> 16S 测序数据<a href="利用wgcna构建网络.html#s-测序数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="输入数据格式" class="section level3 hasAnchor">
+<h3><span class="header-section-number">2.1.1</span> 输入数据格式<a href="利用wgcna构建网络.html#输入数据格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>counts table</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="利用wgcna构建网络.html#cb3-1"></a>seq_tab &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/WGCNA/test/SLE/data/dada2_res.rds&quot;</span>)<span class="op">$</span>seq_tab</span>
+<span id="cb3-2"><a href="利用wgcna构建网络.html#cb3-2"></a><span class="co"># 将ASV替换为ASV1，ASV2，...</span></span>
+<span id="cb3-3"><a href="利用wgcna构建网络.html#cb3-3"></a>ASV_index &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ASV=</span><span class="kw">colnames</span>(seq_tab))</span>
+<span id="cb3-4"><a href="利用wgcna构建网络.html#cb3-4"></a>ASV_index<span class="op">$</span>index &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;ASV&quot;</span>,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">dim</span>(ASV_index)[<span class="dv">1</span>]))</span>
+<span id="cb3-5"><a href="利用wgcna构建网络.html#cb3-5"></a><span class="kw">colnames</span>(seq_tab) &lt;-<span class="st"> </span>ASV_index<span class="op">$</span>index</span>
+<span id="cb3-6"><a href="利用wgcna构建网络.html#cb3-6"></a></span>
+<span id="cb3-7"><a href="利用wgcna构建网络.html#cb3-7"></a><span class="kw">datatable</span>(seq_tab[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div id="htmlwidget-f4ba9785def56237df77" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4ba9785def56237df77">{"x":{"filter":"none","vertical":false,"data":[["6029","6030","6031","6032","6033","6034","6035","6036","6037","6038"],[5494,1247,4890,14616,2884,3700,0,3548,8483,2911],[20133,7103,286,2915,2184,4228,0,1231,19620,0],[4049,2794,1464,1552,1839,1129,11885,0,5632,259],[165,6983,1078,15950,1172,1173,255,12138,874,11685],[1077,0,48,2278,94,5383,13767,0,4453,680],[4372,2111,7518,0,16579,6182,0,4868,0,0],[0,0,6,0,0,0,0,0,6232,0],[0,489,129,0,199,0,0,815,0,2859],[0,757,3941,0,4056,0,0,1266,0,0],[5695,1042,2813,0,530,2091,0,469,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ASV1<\/th>\n      <th>ASV2<\/th>\n      <th>ASV3<\/th>\n      <th>ASV4<\/th>\n      <th>ASV5<\/th>\n      <th>ASV6<\/th>\n      <th>ASV7<\/th>\n      <th>ASV8<\/th>\n      <th>ASV9<\/th>\n      <th>ASV10<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>taxa table</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="利用wgcna构建网络.html#cb4-1"></a>taxa_tb &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/WGCNA/test/SLE/data/dada2_res.rds&quot;</span>)<span class="op">$</span>tax_tab</span>
+<span id="cb4-2"><a href="利用wgcna构建网络.html#cb4-2"></a>taxa_tb &lt;-<span class="st"> </span><span class="kw">merge</span>(ASV_index, taxa_tb, <span class="dt">by.x =</span> <span class="st">&quot;ASV&quot;</span>, <span class="dt">by.y =</span> <span class="dv">0</span>)</span>
+<span id="cb4-3"><a href="利用wgcna构建网络.html#cb4-3"></a>taxa_tb &lt;-<span class="st"> </span>taxa_tb[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>)] <span class="co"># remove ASV column</span></span>
+<span id="cb4-4"><a href="利用wgcna构建网络.html#cb4-4"></a>taxa_tb &lt;-<span class="st"> </span>taxa_tb <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;index&quot;</span>)</span>
+<span id="cb4-5"><a href="利用wgcna构建网络.html#cb4-5"></a><span class="kw">datatable</span>(taxa_tb[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ])</span></code></pre></div>
+<div id="htmlwidget-2e788bf426e06a2d7ed6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e788bf426e06a2d7ed6">{"x":{"filter":"none","vertical":false,"data":[["ASV269","ASV552","ASV368","ASV624","ASV26"],["Bacteria","Bacteria","Bacteria","Bacteria","Bacteria"],["Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes"],["Clostridia","Clostridia","Clostridia","Clostridia","Clostridia"],["Clostridiales","Clostridiales","Clostridiales","Clostridiales","Clostridiales"],["Peptococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae"],["Peptococcus","Subdoligranulum","Subdoligranulum","Subdoligranulum","Subdoligranulum"],[null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Kingdom<\/th>\n      <th>Phylum<\/th>\n      <th>Class<\/th>\n      <th>Order<\/th>\n      <th>Family<\/th>\n      <th>Genus<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>移除counts小于500的ASV</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="利用wgcna构建网络.html#cb5-1"></a>seq_tab_filter &lt;-<span class="st"> </span>seq_tab <span class="op">%&gt;%</span><span class="st"> </span>.[, <span class="kw">apply</span>(.<span class="op">&gt;</span><span class="dv">500</span>, <span class="dv">2</span>, any)]</span>
+<span id="cb5-2"><a href="利用wgcna构建网络.html#cb5-2"></a><span class="kw">dim</span>(seq_tab_filter)</span></code></pre></div>
+<pre><code>## [1]  45 231</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="利用wgcna构建网络.html#cb7-1"></a>taxa_tb &lt;-<span class="st"> </span>taxa_tb[<span class="kw">colnames</span>(seq_tab_filter),]</span>
+<span id="cb7-2"><a href="利用wgcna构建网络.html#cb7-2"></a><span class="kw">dim</span>(taxa_tb)</span></code></pre></div>
+<pre><code>## [1] 231   7</code></pre>
+</div>
+<div id="构建network" class="section level3 hasAnchor">
+<h3><span class="header-section-number">2.1.2</span> 构建network<a href="利用wgcna构建网络.html#构建network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>设置参数</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="利用wgcna构建网络.html#cb9-1"></a><span class="co"># Set seed as a precaution for reproducibility as some methods are non-deterministic.</span></span>
+<span id="cb9-2"><a href="利用wgcna构建网络.html#cb9-2"></a><span class="kw">set.seed</span>(<span class="dv">13118</span>)</span>
+<span id="cb9-3"><a href="利用wgcna构建网络.html#cb9-3"></a>Run_analysis &lt;-<span class="st"> </span><span class="ot">TRUE</span> <span class="co"># if FALSE it tries to load data instead of running</span></span>
+<span id="cb9-4"><a href="利用wgcna构建网络.html#cb9-4"></a></span>
+<span id="cb9-5"><a href="利用wgcna构建网络.html#cb9-5"></a>save_plots &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb9-6"><a href="利用wgcna构建网络.html#cb9-6"></a>plot_labeling_size =<span class="st"> </span><span class="dv">15</span></span>
+<span id="cb9-7"><a href="利用wgcna构建网络.html#cb9-7"></a>prefix &lt;-<span class="st"> &quot;m&quot;</span></span>
+<span id="cb9-8"><a href="利用wgcna构建网络.html#cb9-8"></a></span>
+<span id="cb9-9"><a href="利用wgcna构建网络.html#cb9-9"></a>save_TOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb9-10"><a href="利用wgcna构建网络.html#cb9-10"></a>pam_stage &lt;-<span class="st"> </span><span class="ot">FALSE</span>    <span class="co"># Partitioning around medoids, tries to put more OTUs into modules where it is not directly clear from the dendrogram cutting.</span></span>
+<span id="cb9-11"><a href="利用wgcna构建网络.html#cb9-11"></a>set_verbose =<span class="st"> </span><span class="dv">1</span> <span class="co"># How much detail from the WGCNA functions? Higher means more detail.</span></span>
+<span id="cb9-12"><a href="利用wgcna构建网络.html#cb9-12"></a></span>
+<span id="cb9-13"><a href="利用wgcna构建网络.html#cb9-13"></a>omics_type =<span class="st"> &quot;otu&quot;</span> </span>
+<span id="cb9-14"><a href="利用wgcna构建网络.html#cb9-14"></a></span>
+<span id="cb9-15"><a href="利用wgcna构建网络.html#cb9-15"></a>take_average &lt;-<span class="st"> </span>F</span>
+<span id="cb9-16"><a href="利用wgcna构建网络.html#cb9-16"></a></span>
+<span id="cb9-17"><a href="利用wgcna构建网络.html#cb9-17"></a>max_block_size =<span class="st"> </span><span class="dv">10000</span>      <span class="co">#  OTU data is small enough that this is not necessary.</span></span>
+<span id="cb9-18"><a href="利用wgcna构建网络.html#cb9-18"></a></span>
+<span id="cb9-19"><a href="利用wgcna构建网络.html#cb9-19"></a>tissue =<span class="st"> &quot;G&quot;</span>                <span class="co">#  G for gut, or L for liver</span></span>
+<span id="cb9-20"><a href="利用wgcna构建网络.html#cb9-20"></a></span>
+<span id="cb9-21"><a href="利用wgcna构建网络.html#cb9-21"></a>what_samples =<span class="st"> &quot;FW_and_SW&quot;</span>  <span class="co">#  FW, SW or FW_and_SW</span></span>
+<span id="cb9-22"><a href="利用wgcna构建网络.html#cb9-22"></a></span>
+<span id="cb9-23"><a href="利用wgcna构建网络.html#cb9-23"></a>applied_filter =<span class="st"> </span><span class="fl">0.005</span>      <span class="co">#  filter lowest x percent of total sum,  100 is 100 percent.</span></span>
+<span id="cb9-24"><a href="利用wgcna构建网络.html#cb9-24"></a></span>
+<span id="cb9-25"><a href="利用wgcna构建网络.html#cb9-25"></a>parameter_sets &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">set_1 =</span> <span class="kw">list</span>(<span class="dt">applied_norm =</span> <span class="st">&quot;TSS&quot;</span>, <span class="dt">applied_transf =</span> <span class="st">&quot;CLR&quot;</span>, <span class="dt">assoc_measure =</span> <span class="st">&quot;bicor&quot;</span>),</span>
+<span id="cb9-26"><a href="利用wgcna构建网络.html#cb9-26"></a>                       <span class="dt">set_2 =</span> <span class="kw">list</span>(<span class="dt">applied_norm =</span> <span class="st">&quot;CSS&quot;</span>, <span class="dt">applied_transf =</span> <span class="st">&quot;log2&quot;</span>, <span class="dt">assoc_measure =</span> <span class="st">&quot;bicor&quot;</span>))</span>
+<span id="cb9-27"><a href="利用wgcna构建网络.html#cb9-27"></a></span>
+<span id="cb9-28"><a href="利用wgcna构建网络.html#cb9-28"></a>chosen_parameter_set &lt;-<span class="st"> </span>parameter_sets<span class="op">$</span>set_<span class="dv">2</span></span>
+<span id="cb9-29"><a href="利用wgcna构建网络.html#cb9-29"></a></span>
+<span id="cb9-30"><a href="利用wgcna构建网络.html#cb9-30"></a>pcCorrection &lt;-<span class="st"> </span>F</span>
+<span id="cb9-31"><a href="利用wgcna构建网络.html#cb9-31"></a><span class="cf">if</span>(pcCorrection){</span>
+<span id="cb9-32"><a href="利用wgcna构建网络.html#cb9-32"></a>  estimate_n.pc =<span class="st"> </span>F</span>
+<span id="cb9-33"><a href="利用wgcna构建网络.html#cb9-33"></a>  <span class="cf">if</span>(<span class="op">!</span>estimate_n.pc){</span>
+<span id="cb9-34"><a href="利用wgcna构建网络.html#cb9-34"></a>    number_of_pcs_to_remove =<span class="st"> </span><span class="dv">0</span> <span class="co"># Does not matter when pcCorrection is FALSE</span></span>
+<span id="cb9-35"><a href="利用wgcna构建网络.html#cb9-35"></a>  }</span>
+<span id="cb9-36"><a href="利用wgcna构建网络.html#cb9-36"></a>}</span>
+<span id="cb9-37"><a href="利用wgcna构建网络.html#cb9-37"></a></span>
+<span id="cb9-38"><a href="利用wgcna构建网络.html#cb9-38"></a>save_name &lt;-<span class="st"> &quot;16S_network_module&quot;</span></span></code></pre></div>
+<p>标准化</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="利用wgcna构建网络.html#cb10-1"></a><span class="cf">if</span>(chosen_parameter_set<span class="op">$</span>applied_norm <span class="op">==</span><span class="st"> &quot;TSS&quot;</span>){</span>
+<span id="cb10-2"><a href="利用wgcna构建网络.html#cb10-2"></a>  <span class="co"># Normalize</span></span>
+<span id="cb10-3"><a href="利用wgcna构建网络.html#cb10-3"></a>  seq_tab_filter &lt;-<span class="st"> </span><span class="kw">apply</span>(seq_tab_filter, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){x<span class="op">/</span><span class="kw">sum</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>})</span>
+<span id="cb10-4"><a href="利用wgcna构建网络.html#cb10-4"></a>  seq_tab_filter &lt;-<span class="st"> </span>propr<span class="op">:::</span><span class="kw">proprCLR</span>(<span class="kw">t</span>(seq_tab_filter) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># t(), samples as rows, variables as columns</span></span>
+<span id="cb10-5"><a href="利用wgcna构建网络.html#cb10-5"></a>  seq_tab_filter &lt;-<span class="st"> </span><span class="kw">t</span>(seq_tab_filter)</span>
+<span id="cb10-6"><a href="利用wgcna构建网络.html#cb10-6"></a>}</span>
+<span id="cb10-7"><a href="利用wgcna构建网络.html#cb10-7"></a></span>
+<span id="cb10-8"><a href="利用wgcna构建网络.html#cb10-8"></a><span class="cf">if</span>(chosen_parameter_set<span class="op">$</span>applied_norm <span class="op">==</span><span class="st"> &quot;CSS&quot;</span>){</span>
+<span id="cb10-9"><a href="利用wgcna构建网络.html#cb10-9"></a>  <span class="co"># Normalization and transformation in one</span></span>
+<span id="cb10-10"><a href="利用wgcna构建网络.html#cb10-10"></a>  data.metagenomeSeq &lt;-<span class="st"> </span>metagenomeSeq<span class="op">::</span><span class="kw">newMRexperiment</span>(seq_tab_filter) <span class="co"># Variables as rows, samples as columns</span></span>
+<span id="cb10-11"><a href="利用wgcna构建网络.html#cb10-11"></a>  p &lt;-<span class="st"> </span>metagenomeSeq<span class="op">::</span><span class="kw">cumNormStat</span>(data.metagenomeSeq)</span>
+<span id="cb10-12"><a href="利用wgcna构建网络.html#cb10-12"></a>  data.cumnorm &lt;-<span class="st"> </span>metagenomeSeq<span class="op">::</span><span class="kw">cumNorm</span>(data.metagenomeSeq, <span class="dt">p=</span>p)</span>
+<span id="cb10-13"><a href="利用wgcna构建网络.html#cb10-13"></a>  seq_tab_filter &lt;-<span class="st"> </span>metagenomeSeq<span class="op">::</span><span class="kw">MRcounts</span>(data.cumnorm, <span class="dt">norm=</span><span class="ot">TRUE</span>, <span class="dt">log=</span><span class="ot">TRUE</span>) <span class="co"># log here is a +1 shifted log2</span></span>
+<span id="cb10-14"><a href="利用wgcna构建网络.html#cb10-14"></a>}</span></code></pre></div>
+<pre><code>## Default value being used.</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="利用wgcna构建网络.html#cb12-1"></a>seq_tab_filter &lt;-<span class="st"> </span>seq_tab_filter</span>
+<span id="cb12-2"><a href="利用wgcna构建网络.html#cb12-2"></a></span>
+<span id="cb12-3"><a href="利用wgcna构建网络.html#cb12-3"></a><span class="kw">dim</span>(seq_tab_filter) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;Samples&quot;</span>, <span class="st">&quot;OTUs&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;45 Samples&quot; &quot;231 OTUs&quot;</code></pre>
+<p>挑选power</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="利用wgcna构建网络.html#cb14-1"></a>powers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">seq</span>(<span class="dv">12</span>,<span class="dv">20</span>,<span class="dv">2</span>))</span>
+<span id="cb14-2"><a href="利用wgcna构建网络.html#cb14-2"></a></span>
+<span id="cb14-3"><a href="利用wgcna构建网络.html#cb14-3"></a><span class="kw">suppressWarnings</span>(sft &lt;-<span class="st"> </span><span class="kw">pickSoftThreshold</span>(seq_tab_filter, </span>
+<span id="cb14-4"><a href="利用wgcna构建网络.html#cb14-4"></a>                                          <span class="dt">powerVector =</span> powers, </span>
+<span id="cb14-5"><a href="利用wgcna构建网络.html#cb14-5"></a>                                          <span class="dt">verbose =</span> set_verbose, </span>
+<span id="cb14-6"><a href="利用wgcna构建网络.html#cb14-6"></a>                                          <span class="dt">networkType =</span> <span class="st">&quot;signed&quot;</span>,</span>
+<span id="cb14-7"><a href="利用wgcna构建网络.html#cb14-7"></a>                                          <span class="dt">corFn=</span> chosen_parameter_set<span class="op">$</span>assoc_measure))</span></code></pre></div>
+<pre><code>## pickSoftThreshold: will use block size 231.
+##  pickSoftThreshold: calculating connectivity for given powers... ..0% ..100% 
+##    Power SFT.R.sq slope truncated.R.sq mean.k. median.k. max.k.
+## 1      1   0.6140 11.20         0.9500 118.000  119.0000 129.00
+## 2      2   0.0977  1.59         0.8770  63.000   62.8000  76.10
+## 3      3   0.1530 -1.20         0.7990  34.800   34.2000  46.90
+## 4      4   0.2970 -1.44         0.8540  19.900   19.2000  30.00
+## 5      5   0.2820 -1.17         0.8240  11.900   11.3000  19.70
+## 6      6   0.3040 -1.02         0.9330   7.370    7.0000  13.70
+## 7      7   0.3360 -1.00         0.9280   4.760    4.4200   9.77
+## 8      8   0.4560 -1.09         0.8500   3.210    2.8400   7.18
+## 9      9   0.5630 -1.07         0.7710   2.250    1.9100   5.49
+## 10    10   0.7380 -1.33         0.8710   1.640    1.3400   4.85
+## 11    12   0.1900 -3.14        -0.0251   0.977    0.6970   4.12
+## 12    14   0.1970 -2.85        -0.0237   0.663    0.3710   3.73
+## 13    16   0.2850 -4.10         0.1900   0.499    0.2150   3.50
+## 14    18   0.2450 -4.12         0.0383   0.407    0.1220   3.36
+## 15    20   0.2480 -3.81         0.0410   0.351    0.0795   3.26</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="利用wgcna构建网络.html#cb16-1"></a><span class="co"># Find the soft thresholding power beta to which co-expression similarity is raised to calculate adjacency.</span></span>
+<span id="cb16-2"><a href="利用wgcna构建网络.html#cb16-2"></a><span class="co"># based on the criterion of approximate scale-free topology.</span></span>
+<span id="cb16-3"><a href="利用wgcna构建网络.html#cb16-3"></a></span>
+<span id="cb16-4"><a href="利用wgcna构建网络.html#cb16-4"></a>idx &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>((<span class="op">-</span><span class="kw">sign</span>(sft<span class="op">$</span>fitIndices[,<span class="dv">3</span>])<span class="op">*</span>sft<span class="op">$</span>fitIndices[,<span class="dv">2</span>]) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.90</span>))</span>
+<span id="cb16-5"><a href="利用wgcna构建网络.html#cb16-5"></a><span class="cf">if</span>(<span class="kw">is.infinite</span>(idx)){</span>
+<span id="cb16-6"><a href="利用wgcna构建网络.html#cb16-6"></a>  idx &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>((<span class="op">-</span><span class="kw">sign</span>(sft<span class="op">$</span>fitIndices[,<span class="dv">3</span>])<span class="op">*</span>sft<span class="op">$</span>fitIndices[,<span class="dv">2</span>]) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.80</span>))</span>
+<span id="cb16-7"><a href="利用wgcna构建网络.html#cb16-7"></a>  <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.infinite</span>(idx)){</span>
+<span id="cb16-8"><a href="利用wgcna构建网络.html#cb16-8"></a>    st &lt;-<span class="st"> </span>sft<span class="op">$</span>fitIndices[idx,<span class="dv">1</span>]</span>
+<span id="cb16-9"><a href="利用wgcna构建网络.html#cb16-9"></a>  } <span class="cf">else</span>{</span>
+<span id="cb16-10"><a href="利用wgcna构建网络.html#cb16-10"></a>    idx &lt;-<span class="st"> </span><span class="kw">which.max</span>(<span class="op">-</span><span class="kw">sign</span>(sft<span class="op">$</span>fitIndices[,<span class="dv">3</span>])<span class="op">*</span>sft<span class="op">$</span>fitIndices[,<span class="dv">2</span>])</span>
+<span id="cb16-11"><a href="利用wgcna构建网络.html#cb16-11"></a>    st &lt;-<span class="st"> </span>sft<span class="op">$</span>fitIndices[idx,<span class="dv">1</span>]</span>
+<span id="cb16-12"><a href="利用wgcna构建网络.html#cb16-12"></a>  }</span>
+<span id="cb16-13"><a href="利用wgcna构建网络.html#cb16-13"></a>} <span class="cf">else</span>{</span>
+<span id="cb16-14"><a href="利用wgcna构建网络.html#cb16-14"></a>  st &lt;-<span class="st"> </span>sft<span class="op">$</span>fitIndices[idx,<span class="dv">1</span>]</span>
+<span id="cb16-15"><a href="利用wgcna构建网络.html#cb16-15"></a>}</span>
+<span id="cb16-16"><a href="利用wgcna构建网络.html#cb16-16"></a></span>
+<span id="cb16-17"><a href="利用wgcna构建网络.html#cb16-17"></a></span>
+<span id="cb16-18"><a href="利用wgcna构建网络.html#cb16-18"></a><span class="co"># Plot Scale independence measure and Mean connectivity measure</span></span>
+<span id="cb16-19"><a href="利用wgcna构建网络.html#cb16-19"></a></span>
+<span id="cb16-20"><a href="利用wgcna构建网络.html#cb16-20"></a><span class="co"># Scale-free topology fit index as a function of the soft-thresholding power</span></span>
+<span id="cb16-21"><a href="利用wgcna构建网络.html#cb16-21"></a><span class="kw">data.frame</span>(<span class="dt">Indices =</span> sft<span class="op">$</span>fitIndices[,<span class="dv">1</span>],</span>
+<span id="cb16-22"><a href="利用wgcna构建网络.html#cb16-22"></a>           <span class="dt">sfApprox =</span> <span class="op">-</span><span class="kw">sign</span>(sft<span class="op">$</span>fitIndices[,<span class="dv">3</span>])<span class="op">*</span>sft<span class="op">$</span>fitIndices[,<span class="dv">2</span>]) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-23"><a href="利用wgcna构建网络.html#cb16-23"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb16-24"><a href="利用wgcna构建网络.html#cb16-24"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="fl">0.9</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span><span class="st"> </span><span class="co"># corresponds to R^2 cut-off of 0.9</span></span>
+<span id="cb16-25"><a href="利用wgcna构建网络.html#cb16-25"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="fl">0.8</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="co"># corresponds to R^2 cut-off of 0.8</span></span>
+<span id="cb16-26"><a href="利用wgcna构建网络.html#cb16-26"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Indices, <span class="dt">y =</span> sfApprox), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></span>
+<span id="cb16-27"><a href="利用wgcna构建网络.html#cb16-27"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Indices, <span class="dt">y =</span> sfApprox, <span class="dt">label =</span> Indices), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb16-28"><a href="利用wgcna构建网络.html#cb16-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Scale independence&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-29"><a href="利用wgcna构建网络.html#cb16-29"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Soft Threshold (power)&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-30"><a href="利用wgcna构建网络.html#cb16-30"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;SF Model Fit,signed R^2&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-31"><a href="利用wgcna构建网络.html#cb16-31"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">1</span>,<span class="dv">20</span>) <span class="op">+</span></span>
+<span id="cb16-32"><a href="利用wgcna构建网络.html#cb16-32"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb16-33"><a href="利用wgcna构建网络.html#cb16-33"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> st, <span class="dt">y =</span> <span class="fl">0.25</span>, <span class="dt">xend =</span> st, <span class="dt">yend =</span> sfApprox[idx]<span class="op">-</span><span class="fl">0.05</span>), </span>
+<span id="cb16-34"><a href="利用wgcna构建网络.html#cb16-34"></a>               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.2</span>,<span class="st">&quot;cm&quot;</span>)), </span>
+<span id="cb16-35"><a href="利用wgcna构建网络.html#cb16-35"></a>               <span class="dt">size =</span> <span class="fl">0.5</span>)-&gt;<span class="st"> </span>scale_independence_plot </span>
+<span id="cb16-36"><a href="利用wgcna构建网络.html#cb16-36"></a>  </span>
+<span id="cb16-37"><a href="利用wgcna构建网络.html#cb16-37"></a> </span>
+<span id="cb16-38"><a href="利用wgcna构建网络.html#cb16-38"></a></span>
+<span id="cb16-39"><a href="利用wgcna构建网络.html#cb16-39"></a></span>
+<span id="cb16-40"><a href="利用wgcna构建网络.html#cb16-40"></a><span class="co"># Mean connectivity as a function of the soft-thresholding power</span></span>
+<span id="cb16-41"><a href="利用wgcna构建网络.html#cb16-41"></a></span>
+<span id="cb16-42"><a href="利用wgcna构建网络.html#cb16-42"></a><span class="kw">data.frame</span>(<span class="dt">Indices =</span> sft<span class="op">$</span>fitIndices[,<span class="dv">1</span>],</span>
+<span id="cb16-43"><a href="利用wgcna构建网络.html#cb16-43"></a>           <span class="dt">meanApprox =</span> sft<span class="op">$</span>fitIndices[,<span class="dv">5</span>]) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-44"><a href="利用wgcna构建网络.html#cb16-44"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb16-45"><a href="利用wgcna构建网络.html#cb16-45"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Indices, <span class="dt">y =</span> meanApprox), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></span>
+<span id="cb16-46"><a href="利用wgcna构建网络.html#cb16-46"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Indices, <span class="dt">y =</span> meanApprox, <span class="dt">label =</span> Indices), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb16-47"><a href="利用wgcna构建网络.html#cb16-47"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Soft Threshold (power)&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-48"><a href="利用wgcna构建网络.html#cb16-48"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Connectivity&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-49"><a href="利用wgcna构建网络.html#cb16-49"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> st<span class="fl">-0.4</span>, </span>
+<span id="cb16-50"><a href="利用wgcna构建网络.html#cb16-50"></a>                   <span class="dt">y =</span> sft<span class="op">$</span>fitIndices<span class="op">$</span>mean.k.[idx], </span>
+<span id="cb16-51"><a href="利用wgcna构建网络.html#cb16-51"></a>                   <span class="dt">xend =</span> <span class="dv">0</span>, </span>
+<span id="cb16-52"><a href="利用wgcna构建网络.html#cb16-52"></a>                   <span class="dt">yend =</span> sft<span class="op">$</span>fitIndices<span class="op">$</span>mean.k.[idx]),</span>
+<span id="cb16-53"><a href="利用wgcna构建网络.html#cb16-53"></a>               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.2</span>,<span class="st">&quot;cm&quot;</span>)), </span>
+<span id="cb16-54"><a href="利用wgcna构建网络.html#cb16-54"></a>               <span class="dt">size =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb16-55"><a href="利用wgcna构建网络.html#cb16-55"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Mean connectivity: &quot;</span>, </span>
+<span id="cb16-56"><a href="利用wgcna构建网络.html#cb16-56"></a>                 <span class="kw">round</span>(sft<span class="op">$</span>fitIndices<span class="op">$</span>mean.k.[idx],<span class="dv">2</span>))) -&gt;<span class="st"> </span>mean_connectivity_plot</span>
+<span id="cb16-57"><a href="利用wgcna构建网络.html#cb16-57"></a></span>
+<span id="cb16-58"><a href="利用wgcna构建网络.html#cb16-58"></a></span>
+<span id="cb16-59"><a href="利用wgcna构建网络.html#cb16-59"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(scale_independence_plot, mean_connectivity_plot, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">align =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size) -&gt;<span class="st"> </span>si_mc_plot</span>
+<span id="cb16-60"><a href="利用wgcna构建网络.html#cb16-60"></a></span>
+<span id="cb16-61"><a href="利用wgcna构建网络.html#cb16-61"></a>si_mc_plot</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>power</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="利用wgcna构建网络.html#cb17-1"></a>st</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>Block-wise network construction and module detection</p>
+<p>The function <code>blockwiseModules</code> will first pre cluster with fast crude clustering method to cluster OTUs into blocks not exceeding the maximum, blocks may therefore not be fully optimal in the end.</p>
+<p>Change the parameters here to better reflect your own data.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="利用wgcna构建网络.html#cb19-1"></a>Run_analysis &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb19-2"><a href="利用wgcna构建网络.html#cb19-2"></a><span class="cf">if</span>(Run_analysis){</span>
+<span id="cb19-3"><a href="利用wgcna构建网络.html#cb19-3"></a>  modules.otu &lt;-<span class="st"> </span><span class="kw">blockwiseModules</span>(seq_tab_filter,</span>
+<span id="cb19-4"><a href="利用wgcna构建网络.html#cb19-4"></a>                          <span class="dt">power =</span> st, </span>
+<span id="cb19-5"><a href="利用wgcna构建网络.html#cb19-5"></a>                          <span class="dt">networkType =</span> <span class="st">&quot;signed&quot;</span>, </span>
+<span id="cb19-6"><a href="利用wgcna构建网络.html#cb19-6"></a>                          <span class="dt">TOMType =</span> <span class="st">&quot;signed&quot;</span>,</span>
+<span id="cb19-7"><a href="利用wgcna构建网络.html#cb19-7"></a>                          <span class="dt">corType =</span> chosen_parameter_set<span class="op">$</span>assoc_measure,</span>
+<span id="cb19-8"><a href="利用wgcna构建网络.html#cb19-8"></a>                          <span class="dt">maxPOutliers =</span> <span class="fl">0.05</span>,</span>
+<span id="cb19-9"><a href="利用wgcna构建网络.html#cb19-9"></a>                          <span class="dt">deepSplit =</span> <span class="dv">2</span>,</span>
+<span id="cb19-10"><a href="利用wgcna构建网络.html#cb19-10"></a>                          <span class="dt">pamStage =</span> pam_stage, </span>
+<span id="cb19-11"><a href="利用wgcna构建网络.html#cb19-11"></a>                          <span class="dt">pamRespectsDendro =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb19-12"><a href="利用wgcna构建网络.html#cb19-12"></a>                          <span class="dt">mergeCutHeight =</span> <span class="fl">0.25</span>,</span>
+<span id="cb19-13"><a href="利用wgcna构建网络.html#cb19-13"></a>                          <span class="dt">replaceMissingAdjacencies =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb19-14"><a href="利用wgcna构建网络.html#cb19-14"></a>                          <span class="dt">minModuleSize =</span> <span class="dv">5</span>, <span class="co"># There are fewer otus than genes, and that many might not be connected</span></span>
+<span id="cb19-15"><a href="利用wgcna构建网络.html#cb19-15"></a>                          <span class="dt">numericLabels =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb19-16"><a href="利用wgcna构建网络.html#cb19-16"></a>                          <span class="dt">saveTOMs =</span> save_TOM,</span>
+<span id="cb19-17"><a href="利用wgcna构建网络.html#cb19-17"></a>                          <span class="dt">saveTOMFileBase =</span> <span class="kw">paste0</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/Bookdown/result/&quot;</span>, save_name),</span>
+<span id="cb19-18"><a href="利用wgcna构建网络.html#cb19-18"></a>                          <span class="dt">verbose =</span> set_verbose)</span>
+<span id="cb19-19"><a href="利用wgcna构建网络.html#cb19-19"></a>  </span>
+<span id="cb19-20"><a href="利用wgcna构建网络.html#cb19-20"></a>  <span class="kw">rownames</span>(modules.otu<span class="op">$</span>MEs) &lt;-<span class="st"> </span><span class="kw">rownames</span>(seq_tab_filter)</span>
+<span id="cb19-21"><a href="利用wgcna构建网络.html#cb19-21"></a>  <span class="kw">names</span>(modules.otu<span class="op">$</span>colors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seq_tab_filter)</span>
+<span id="cb19-22"><a href="利用wgcna构建网络.html#cb19-22"></a>  <span class="kw">names</span>(modules.otu<span class="op">$</span>unmergedColors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(seq_tab_filter)</span>
+<span id="cb19-23"><a href="利用wgcna构建网络.html#cb19-23"></a>  </span>
+<span id="cb19-24"><a href="利用wgcna构建网络.html#cb19-24"></a>  hubs &lt;-<span class="st"> </span><span class="kw">chooseTopHubInEachModule</span>(seq_tab_filter, modules.otu<span class="op">$</span>colors)</span>
+<span id="cb19-25"><a href="利用wgcna构建网络.html#cb19-25"></a>}</span></code></pre></div>
+<pre><code>##  Calculating module eigengenes block-wise from all genes</code></pre>
+<p>Visualizing module characteristics</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="利用wgcna构建网络.html#cb21-1"></a><span class="co"># Convert labels to colors for plotting</span></span>
+<span id="cb21-2"><a href="利用wgcna构建网络.html#cb21-2"></a>merged_colors &lt;-<span class="st"> </span><span class="kw">labels2colors</span>(modules.otu<span class="op">$</span>colors)</span></code></pre></div>
+<p>How many OTUs are there in each module?</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="利用wgcna构建网络.html#cb22-1"></a><span class="kw">table</span>(modules.otu<span class="op">$</span>colors) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-2"><a href="利用wgcna构建网络.html#cb22-2"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-3"><a href="利用wgcna构建网络.html#cb22-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Module =</span> Var1, <span class="dt">Size =</span> Freq) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-4"><a href="利用wgcna构建网络.html#cb22-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">Module_color =</span> <span class="kw">labels2colors</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(Module)))) -&gt;<span class="st"> </span>module_size</span>
+<span id="cb22-5"><a href="利用wgcna构建网络.html#cb22-5"></a></span>
+<span id="cb22-6"><a href="利用wgcna构建网络.html#cb22-6"></a>module_size <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-7"><a href="利用wgcna构建网络.html#cb22-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Module, <span class="dt">y =</span> Size, <span class="dt">fill =</span> Module)) <span class="op">+</span></span>
+<span id="cb22-8"><a href="利用wgcna构建网络.html#cb22-8"></a><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">color =</span>  <span class="st">&quot;#000000&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-9"><a href="利用wgcna构建网络.html#cb22-9"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of OTUs in each module&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-10"><a href="利用wgcna构建网络.html#cb22-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-11"><a href="利用wgcna构建网络.html#cb22-11"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">setNames</span>(module_size<span class="op">$</span>Module_color,module_size<span class="op">$</span>Module)) <span class="op">+</span></span>
+<span id="cb22-12"><a href="利用wgcna构建网络.html#cb22-12"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> Size),<span class="dt">vjust =</span> <span class="fl">0.5</span>, <span class="dt">hjust =</span> <span class="fl">-0.18</span>, <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></span>
+<span id="cb22-13"><a href="利用wgcna构建网络.html#cb22-13"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="kw">max</span>(module_size<span class="op">$</span>Size)<span class="op">*</span><span class="fl">1.1</span>) <span class="op">+</span></span>
+<span id="cb22-14"><a href="利用wgcna构建网络.html#cb22-14"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">margin</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="st">&quot;pt&quot;</span>)) <span class="op">+</span></span>
+<span id="cb22-15"><a href="利用wgcna构建网络.html#cb22-15"></a><span class="st">  </span><span class="kw">coord_flip</span>()-&gt;<span class="st"> </span>module_size_barplot</span>
+<span id="cb22-16"><a href="利用wgcna构建网络.html#cb22-16"></a></span>
+<span id="cb22-17"><a href="利用wgcna构建网络.html#cb22-17"></a>module_size_barplot</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-19-1.png" width="480" /></p>
+<p>提取模块中的网络</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用wgcna构建网络.html#cb23-1"></a><span class="kw">plotEigengeneNetworks</span>(modules.otu<span class="op">$</span>MEs, <span class="st">&quot;Eigengene adjacency heatmap&quot;</span>,</span>
+<span id="cb23-2"><a href="利用wgcna构建网络.html#cb23-2"></a><span class="dt">marDendro =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb23-3"><a href="利用wgcna构建网络.html#cb23-3"></a><span class="dt">marHeatmap =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">plotDendrograms =</span> T,</span>
+<span id="cb23-4"><a href="利用wgcna构建网络.html#cb23-4"></a><span class="dt">xLabelsAngle =</span> <span class="dv">90</span>)</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="利用wgcna构建网络.html#cb24-1"></a><span class="kw">table</span>(modules.otu<span class="op">$</span>colors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() -&gt;<span class="st"> </span>res</span>
+<span id="cb24-2"><a href="利用wgcna构建网络.html#cb24-2"></a>res<span class="op">$</span><span class="st">`</span><span class="dt">Module color</span><span class="st">`</span> &lt;-<span class="st"> </span>WGCNA<span class="op">::</span><span class="kw">labels2colors</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(res<span class="op">$</span>Var1)))</span>
+<span id="cb24-3"><a href="利用wgcna构建网络.html#cb24-3"></a>res &lt;-<span class="st"> </span>res[, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>)]</span>
+<span id="cb24-4"><a href="利用wgcna构建网络.html#cb24-4"></a><span class="kw">colnames</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Module&quot;</span>, <span class="st">&quot;Module color&quot;</span>, <span class="st">&quot;Number of OTUs&quot;</span>)</span>
+<span id="cb24-5"><a href="利用wgcna构建网络.html#cb24-5"></a>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">datatable</span>()</span></code></pre></div>
+<div id="htmlwidget-715178d5dd2cfabef282" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-715178d5dd2cfabef282">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["grey","turquoise","blue","brown","yellow","green"],[141,58,10,8,8,6]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>Module color<\/th>\n      <th>Number of OTUs<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Dendrogram and module colors</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="利用wgcna构建网络.html#cb25-1"></a><span class="co"># Plot the dendrogram and the module colors underneath for each block</span></span>
+<span id="cb25-2"><a href="利用wgcna构建网络.html#cb25-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(modules.otu<span class="op">$</span>dendrograms)){</span>
+<span id="cb25-3"><a href="利用wgcna构建网络.html#cb25-3"></a>  <span class="kw">plotDendroAndColors</span>(modules.otu<span class="op">$</span>dendrograms[[i]], merged_colors[modules.otu<span class="op">$</span>blockGenes[[i]]],</span>
+<span id="cb25-4"><a href="利用wgcna构建网络.html#cb25-4"></a>                      <span class="st">&quot;Module colors&quot;</span>,</span>
+<span id="cb25-5"><a href="利用wgcna构建网络.html#cb25-5"></a>                      <span class="dt">dendroLabels =</span> <span class="ot">FALSE</span>, <span class="dt">hang =</span> <span class="fl">0.03</span>,</span>
+<span id="cb25-6"><a href="利用wgcna构建网络.html#cb25-6"></a>                      <span class="dt">addGuide =</span> <span class="ot">TRUE</span>, <span class="dt">guideHang =</span> <span class="fl">0.05</span>,</span>
+<span id="cb25-7"><a href="利用wgcna构建网络.html#cb25-7"></a>                      <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&quot;Cluster Dendrogram</span><span class="ch">\n</span><span class="st">&quot;</span>, </span>
+<span id="cb25-8"><a href="利用wgcna构建网络.html#cb25-8"></a>                                    <span class="st">&quot;for block &quot;</span>, </span>
+<span id="cb25-9"><a href="利用wgcna构建网络.html#cb25-9"></a>                                    i,<span class="st">&quot;: &quot;</span>,</span>
+<span id="cb25-10"><a href="利用wgcna构建网络.html#cb25-10"></a>                                    <span class="kw">length</span>(modules.otu<span class="op">$</span>blockGenes[[i]]),</span>
+<span id="cb25-11"><a href="利用wgcna构建网络.html#cb25-11"></a>                                    <span class="st">&quot; OTUs&quot;</span>))</span>
+<span id="cb25-12"><a href="利用wgcna构建网络.html#cb25-12"></a>}</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
+<p>Module (Eigengene) correlation</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="利用wgcna构建网络.html#cb26-1"></a>MEs &lt;-<span class="st"> </span>modules.otu<span class="op">$</span>MEs</span>
+<span id="cb26-2"><a href="利用wgcna构建网络.html#cb26-2"></a></span>
+<span id="cb26-3"><a href="利用wgcna构建网络.html#cb26-3"></a><span class="co"># Module correlation to other modules</span></span>
+<span id="cb26-4"><a href="利用wgcna构建网络.html#cb26-4"></a>MEs_R &lt;-<span class="st"> </span><span class="kw">bicor</span>(MEs, MEs, <span class="dt">maxPOutliers =</span> <span class="fl">0.05</span>)</span>
+<span id="cb26-5"><a href="利用wgcna构建网络.html#cb26-5"></a></span>
+<span id="cb26-6"><a href="利用wgcna构建网络.html#cb26-6"></a>idx.r &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">rownames</span>(MEs_R) <span class="op">==</span><span class="st"> &quot;ME0&quot;</span>)</span>
+<span id="cb26-7"><a href="利用wgcna构建网络.html#cb26-7"></a>idx.c &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">colnames</span>(MEs_R) <span class="op">==</span><span class="st"> &quot;ME0&quot;</span>)</span>
+<span id="cb26-8"><a href="利用wgcna构建网络.html#cb26-8"></a></span>
+<span id="cb26-9"><a href="利用wgcna构建网络.html#cb26-9"></a>MEs_R_noME0 &lt;-<span class="st"> </span>MEs_R[<span class="op">-</span>idx.r, <span class="op">-</span>idx.c]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="利用wgcna构建网络.html#cb27-1"></a>MEs_R[<span class="kw">upper.tri</span>(MEs_R_noME0)] <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-2"><a href="利用wgcna构建网络.html#cb27-2"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-3"><a href="利用wgcna构建网络.html#cb27-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">&quot;correlation&quot;</span> =<span class="st"> &quot;.&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-4"><a href="利用wgcna构建网络.html#cb27-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>correlation)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb27-5"><a href="利用wgcna构建网络.html#cb27-5"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb27-6"><a href="利用wgcna构建网络.html#cb27-6"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(prefix,<span class="st">&quot;ME correlation density</span><span class="ch">\n</span><span class="st"> without &quot;</span>,prefix ,<span class="st">&quot;ME0&quot;</span>)) -&gt;<span class="st"> </span>MEs_R_density</span>
+<span id="cb27-7"><a href="利用wgcna构建网络.html#cb27-7"></a></span>
+<span id="cb27-8"><a href="利用wgcna构建网络.html#cb27-8"></a>pheatmap<span class="op">::</span><span class="kw">pheatmap</span>(MEs_R, <span class="dt">color =</span> <span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;White&quot;</span>, <span class="st">&quot;Red&quot;</span>))(<span class="dv">100</span>),</span>
+<span id="cb27-9"><a href="利用wgcna构建网络.html#cb27-9"></a>                   <span class="dt">silent =</span> T, </span>
+<span id="cb27-10"><a href="利用wgcna构建网络.html#cb27-10"></a>                   <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">length.out =</span> <span class="dv">101</span>),</span>
+<span id="cb27-11"><a href="利用wgcna构建网络.html#cb27-11"></a>                   <span class="dt">treeheight_row =</span> <span class="dv">5</span>, </span>
+<span id="cb27-12"><a href="利用wgcna构建网络.html#cb27-12"></a>                   <span class="dt">treeheight_col =</span> <span class="dv">5</span>,</span>
+<span id="cb27-13"><a href="利用wgcna构建网络.html#cb27-13"></a>                   <span class="dt">main =</span> <span class="kw">paste0</span>(prefix,<span class="st">&quot;ME correlation heatmap&quot;</span>),</span>
+<span id="cb27-14"><a href="利用wgcna构建网络.html#cb27-14"></a>                   <span class="dt">labels_row =</span> <span class="kw">paste0</span>(prefix, <span class="kw">rownames</span>(MEs_R)),</span>
+<span id="cb27-15"><a href="利用wgcna构建网络.html#cb27-15"></a>                   <span class="dt">labels_col =</span> <span class="kw">paste0</span>(prefix, <span class="kw">colnames</span>(MEs_R))) -&gt;<span class="st"> </span>MEs_R_Corr</span>
+<span id="cb27-16"><a href="利用wgcna构建网络.html#cb27-16"></a></span>
+<span id="cb27-17"><a href="利用wgcna构建网络.html#cb27-17"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(MEs_R_density, MEs_R_Corr<span class="op">$</span>gtable, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;D&quot;</span>, <span class="st">&quot;E&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size, <span class="dt">rel_widths =</span> <span class="kw">c</span>(<span class="fl">0.6</span>, <span class="dv">1</span>)) -&gt;<span class="st"> </span>density_eigen</span>
+<span id="cb27-18"><a href="利用wgcna构建网络.html#cb27-18"></a></span>
+<span id="cb27-19"><a href="利用wgcna构建网络.html#cb27-19"></a>density_eigen</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="利用wgcna构建网络.html#cb28-1"></a><span class="kw">all</span>(<span class="kw">rownames</span>(seq_tab_filter) <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(MEs))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="利用wgcna构建网络.html#cb30-1"></a><span class="kw">dim</span>(seq_tab_filter) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste0</span>(<span class="kw">c</span>(<span class="st">&quot; samples&quot;</span>, <span class="st">&quot; OTUs&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;45 samples&quot; &quot;231 OTUs&quot;</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="利用wgcna构建网络.html#cb32-1"></a>kME &lt;-<span class="st"> </span><span class="kw">bicor</span>(seq_tab_filter, MEs, <span class="dt">maxPOutliers =</span> <span class="fl">0.05</span>)</span>
+<span id="cb32-2"><a href="利用wgcna构建网络.html#cb32-2"></a><span class="kw">dim</span>(kME) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste0</span>(<span class="kw">c</span>(<span class="st">&quot; OTUs&quot;</span>, <span class="st">&quot; modules&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;231 OTUs&quot;  &quot;6 modules&quot;</code></pre>
+<p>Show a plot of the intra modular correlation; How the OTUs within a module correlates to the module eigengene.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="利用wgcna构建网络.html#cb34-1"></a>intra_cor &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb34-2"><a href="利用wgcna构建网络.html#cb34-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(seq_tab_filter)) {</span>
+<span id="cb34-3"><a href="利用wgcna构建网络.html#cb34-3"></a>  m &lt;-<span class="st"> </span>modules.otu<span class="op">$</span>colors[i]</span>
+<span id="cb34-4"><a href="利用wgcna构建网络.html#cb34-4"></a>  intra_cor[i] &lt;-<span class="st"> </span>kME[i, <span class="kw">paste0</span>(<span class="st">&quot;ME&quot;</span>, m)]</span>
+<span id="cb34-5"><a href="利用wgcna构建网络.html#cb34-5"></a>  <span class="cf">if</span>(m <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>){</span>
+<span id="cb34-6"><a href="利用wgcna构建网络.html#cb34-6"></a>    intra_cor[i] &lt;-<span class="st"> </span>kME[i, <span class="kw">paste0</span>(<span class="st">&quot;ME&quot;</span>, m)]</span>
+<span id="cb34-7"><a href="利用wgcna构建网络.html#cb34-7"></a>  } <span class="cf">else</span>{</span>
+<span id="cb34-8"><a href="利用wgcna构建网络.html#cb34-8"></a>    intra_cor[i] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb34-9"><a href="利用wgcna构建网络.html#cb34-9"></a>  }</span>
+<span id="cb34-10"><a href="利用wgcna构建网络.html#cb34-10"></a>  </span>
+<span id="cb34-11"><a href="利用wgcna构建网络.html#cb34-11"></a>}</span>
+<span id="cb34-12"><a href="利用wgcna构建网络.html#cb34-12"></a></span>
+<span id="cb34-13"><a href="利用wgcna构建网络.html#cb34-13"></a>idx &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.na</span>(intra_cor))</span>
+<span id="cb34-14"><a href="利用wgcna构建网络.html#cb34-14"></a>intra_cor &lt;-<span class="st"> </span>intra_cor[<span class="op">-</span>idx]</span>
+<span id="cb34-15"><a href="利用wgcna构建网络.html#cb34-15"></a></span>
+<span id="cb34-16"><a href="利用wgcna构建网络.html#cb34-16"></a><span class="kw">plot</span>(<span class="kw">density</span>(intra_cor), <span class="dt">main =</span> <span class="st">&quot;Correlations with module-eigenOTU (within module correlation)</span><span class="ch">\n</span><span class="st">No ME0&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Show the same thing, but for each module individually, and color by module color.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="利用wgcna构建网络.html#cb35-1"></a><span class="co"># Corr within modules</span></span>
+<span id="cb35-2"><a href="利用wgcna构建网络.html#cb35-2"></a>corr_within_module &lt;-<span class="st"> </span><span class="cf">function</span>(seq_tab_filter, modules, <span class="dt">module_x =</span> <span class="dv">1</span>){</span>
+<span id="cb35-3"><a href="利用wgcna构建网络.html#cb35-3"></a>  idx.omics_data &lt;-<span class="st"> </span><span class="kw">which</span>(modules<span class="op">$</span>colors <span class="op">==</span><span class="st"> </span>module_x)</span>
+<span id="cb35-4"><a href="利用wgcna构建网络.html#cb35-4"></a>  idx.me &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">colnames</span>(modules<span class="op">$</span>MEs) <span class="op">==</span><span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;ME&quot;</span>,module_x))</span>
+<span id="cb35-5"><a href="利用wgcna构建网络.html#cb35-5"></a>  kME_x &lt;-<span class="st"> </span><span class="kw">bicor</span>(seq_tab_filter[,idx.omics_data], modules<span class="op">$</span>MEs[,idx.me], <span class="dt">maxPOutliers =</span> <span class="fl">0.05</span>)</span>
+<span id="cb35-6"><a href="利用wgcna构建网络.html#cb35-6"></a>  kME_x</span>
+<span id="cb35-7"><a href="利用wgcna构建网络.html#cb35-7"></a>}</span>
+<span id="cb35-8"><a href="利用wgcna构建网络.html#cb35-8"></a></span>
+<span id="cb35-9"><a href="利用wgcna构建网络.html#cb35-9"></a>ggplot.list &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb35-10"><a href="利用wgcna构建网络.html#cb35-10"></a></span>
+<span id="cb35-11"><a href="利用wgcna构建网络.html#cb35-11"></a><span class="cf">for</span>(m <span class="cf">in</span> <span class="kw">colnames</span>(modules.otu<span class="op">$</span>MEs)){</span>
+<span id="cb35-12"><a href="利用wgcna构建网络.html#cb35-12"></a>  h &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">sub</span>(<span class="st">&quot;ME&quot;</span>,<span class="st">&quot;&quot;</span>, m))</span>
+<span id="cb35-13"><a href="利用wgcna构建网络.html#cb35-13"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">suppressWarnings</span>(<span class="kw">corr_within_module</span>(<span class="dt">seq_tab_filter =</span> seq_tab_filter, <span class="dt">modules =</span> modules.otu, <span class="dt">module_x =</span> h))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-14"><a href="利用wgcna构建网络.html#cb35-14"></a><span class="st">    </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-15"><a href="利用wgcna构建网络.html#cb35-15"></a><span class="st">    </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">fill =</span> <span class="kw">labels2colors</span>(h), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-16"><a href="利用wgcna构建网络.html#cb35-16"></a><span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb35-17"><a href="利用wgcna构建网络.html#cb35-17"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;OTU correlation&quot;</span>)<span class="op">+</span></span>
+<span id="cb35-18"><a href="利用wgcna构建网络.html#cb35-18"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(prefix,m)) -&gt;<span class="st"> </span>da_plot</span>
+<span id="cb35-19"><a href="利用wgcna构建网络.html#cb35-19"></a>  </span>
+<span id="cb35-20"><a href="利用wgcna构建网络.html#cb35-20"></a>  ggplot.list[[m]] &lt;-<span class="st"> </span>da_plot</span>
+<span id="cb35-21"><a href="利用wgcna构建网络.html#cb35-21"></a>}</span>
+<span id="cb35-22"><a href="利用wgcna构建网络.html#cb35-22"></a></span>
+<span id="cb35-23"><a href="利用wgcna构建网络.html#cb35-23"></a>ggplot.list &lt;-<span class="st"> </span>ggplot.list[ggplot.list <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;ME&quot;</span>, <span class="st">&quot;&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">order</span>()]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="利用wgcna构建网络.html#cb36-1"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> ggplot.list, <span class="dt">ncol =</span> <span class="dv">2</span>) -&gt;<span class="st"> </span>density_all_plot</span>
+<span id="cb36-2"><a href="利用wgcna构建网络.html#cb36-2"></a>density_all_plot</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
+<p>Combine to one plot</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="利用wgcna构建网络.html#cb37-1"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(si_mc_plot , density_eigen, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>)) -&gt;<span class="st"> </span>part_<span class="dv">1</span></span>
+<span id="cb37-2"><a href="利用wgcna构建网络.html#cb37-2"></a></span>
+<span id="cb37-3"><a href="利用wgcna构建网络.html#cb37-3"></a></span>
+<span id="cb37-4"><a href="利用wgcna构建网络.html#cb37-4"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(part_<span class="dv">1</span>, module_size_barplot, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size, <span class="dt">rel_widths =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>)) -&gt;<span class="st"> </span>part_<span class="dv">2</span></span>
+<span id="cb37-5"><a href="利用wgcna构建网络.html#cb37-5"></a></span>
+<span id="cb37-6"><a href="利用wgcna构建网络.html#cb37-6"></a></span>
+<span id="cb37-7"><a href="利用wgcna构建网络.html#cb37-7"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(part_<span class="dv">2</span>, density_all_plot, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size)</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-29-1.png" width="1152" /></p>
+<p>Hub genes</p>
+<p>For each module it is possible to pick a hub gene with the function <code>chooseTopHubInEachModule</code>.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="利用wgcna构建网络.html#cb38-1"></a>hubs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-2"><a href="利用wgcna构建网络.html#cb38-2"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-3"><a href="利用wgcna构建网络.html#cb38-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">&quot;OTU_name&quot;</span> =<span class="st"> &quot;.&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb38-4"><a href="利用wgcna构建网络.html#cb38-4"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;Module&quot;</span>) -&gt;<span class="st"> </span>hubOTUs</span>
+<span id="cb38-5"><a href="利用wgcna构建网络.html#cb38-5"></a></span>
+<span id="cb38-6"><a href="利用wgcna构建网络.html#cb38-6"></a></span>
+<span id="cb38-7"><a href="利用wgcna构建网络.html#cb38-7"></a></span>
+<span id="cb38-8"><a href="利用wgcna构建网络.html#cb38-8"></a>dplyr<span class="op">::</span><span class="kw">left_join</span>(hubOTUs, </span>
+<span id="cb38-9"><a href="利用wgcna构建网络.html#cb38-9"></a>                 (taxa_tb <span class="op">%&gt;%</span></span>
+<span id="cb38-10"><a href="利用wgcna构建网络.html#cb38-10"></a><span class="st">                    </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;OTU_name&quot;</span>)), </span>
+<span id="cb38-11"><a href="利用wgcna构建网络.html#cb38-11"></a>                 <span class="dt">by =</span> <span class="st">&quot;OTU_name&quot;</span>) -&gt;<span class="st"> </span>hubOTUs</span>
+<span id="cb38-12"><a href="利用wgcna构建网络.html#cb38-12"></a></span>
+<span id="cb38-13"><a href="利用wgcna构建网络.html#cb38-13"></a>hubOTUs</span></code></pre></div>
+<pre><code>##   Module OTU_name  Kingdom        Phylum            Class              Order                Family        Genus     Species
+## 1      0    ASV75 Bacteria Bacteroidetes      Bacteroidia      Bacteroidales        Bacteroidaceae  Bacteroides        &lt;NA&gt;
+## 2      1    ASV20 Bacteria    Firmicutes       Clostridia      Clostridiales       Lachnospiraceae        Dorea longicatena
+## 3      2   ASV248 Bacteria    Firmicutes       Clostridia      Clostridiales       Lachnospiraceae      Blautia        &lt;NA&gt;
+## 4      3   ASV222 Bacteria    Firmicutes       Clostridia      Clostridiales Peptostreptococcaceae         &lt;NA&gt;        &lt;NA&gt;
+## 5      4   ASV237 Bacteria Bacteroidetes      Bacteroidia      Bacteroidales        Bacteroidaceae  Bacteroides        &lt;NA&gt;
+## 6      5   ASV214 Bacteria    Firmicutes Erysipelotrichia Erysipelotrichales   Erysipelotrichaceae Holdemanella        &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="利用wgcna构建网络.html#cb40-1"></a>res &lt;-<span class="st"> </span>hubOTUs[, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">7</span>)]</span>
+<span id="cb40-2"><a href="利用wgcna构建网络.html#cb40-2"></a><span class="kw">colnames</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Module&quot;</span>, <span class="st">&quot;OTU&quot;</span>, <span class="st">&quot;Phylum&quot;</span>,<span class="st">&quot;Genus&quot;</span>)</span>
+<span id="cb40-3"><a href="利用wgcna构建网络.html#cb40-3"></a>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">datatable</span>()</span></code></pre></div>
+<div id="htmlwidget-5e368c5336c15b454103" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e368c5336c15b454103">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["ASV75","ASV20","ASV248","ASV222","ASV237","ASV214"],["Bacteroidetes","Firmicutes","Firmicutes","Firmicutes","Bacteroidetes","Firmicutes"],["Bacteroidaceae","Lachnospiraceae","Lachnospiraceae","Peptostreptococcaceae","Bacteroidaceae","Erysipelotrichaceae"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>OTU<\/th>\n      <th>Phylum<\/th>\n      <th>Genus<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>可视化网络图</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="利用wgcna构建网络.html#cb41-1"></a><span class="kw">load</span>(<span class="dt">file =</span> <span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/Bookdown/result/16S_network_module-block.1.RData&quot;</span>)</span>
+<span id="cb41-2"><a href="利用wgcna构建网络.html#cb41-2"></a><span class="co"># The TOM is saved as a dist object and needs to be converted to a matrix</span></span>
+<span id="cb41-3"><a href="利用wgcna构建网络.html#cb41-3"></a>TOM &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(TOM)</span>
+<span id="cb41-4"><a href="利用wgcna构建网络.html#cb41-4"></a><span class="co"># Add OTU names to the TOM matrix. It is symmetrical so rownames = colnames</span></span>
+<span id="cb41-5"><a href="利用wgcna构建网络.html#cb41-5"></a><span class="kw">rownames</span>(TOM) &lt;-<span class="st"> </span><span class="kw">colnames</span>(TOM) &lt;-<span class="st"> </span><span class="kw">names</span>(modules.otu<span class="op">$</span>colors)</span></code></pre></div>
+<p>Which taxonomic level should the graph be colored with in addition to modules?</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="利用wgcna构建网络.html#cb42-1"></a>selected_taxa &lt;-<span class="st"> &quot;Phylum&quot;</span></span></code></pre></div>
+<p>Convert module labels and taxonomy to hex colors</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="利用wgcna构建网络.html#cb43-1"></a>taxonomy_info &lt;-<span class="st"> </span></span>
+<span id="cb43-2"><a href="利用wgcna构建网络.html#cb43-2"></a><span class="st">  </span>taxa_tb <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb43-3"><a href="利用wgcna构建网络.html#cb43-3"></a><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;OTU_name&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb43-4"><a href="利用wgcna构建网络.html#cb43-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;OTU_name&quot;</span>, selected_taxa) <span class="op">%&gt;%</span></span>
+<span id="cb43-5"><a href="利用wgcna构建网络.html#cb43-5"></a><span class="st">  </span><span class="kw">mutate_all</span>(<span class="dt">.funs =</span> <span class="kw">list</span>(as.character)) </span></code></pre></div>
+<pre><code>## Note: Using an external vector in selections is ambiguous.
+## ℹ Use `all_of(selected_taxa)` instead of `selected_taxa` to silence this message.
+## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
+## This message is displayed once per session.</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="利用wgcna构建网络.html#cb45-1"></a>module_info &lt;-<span class="st"> </span></span>
+<span id="cb45-2"><a href="利用wgcna构建网络.html#cb45-2"></a><span class="st">  </span>modules.otu<span class="op">$</span>colors <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-3"><a href="利用wgcna构建网络.html#cb45-3"></a><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span></span>
+<span id="cb45-4"><a href="利用wgcna构建网络.html#cb45-4"></a><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;OTU_name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-5"><a href="利用wgcna构建网络.html#cb45-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Module =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb45-6"><a href="利用wgcna构建网络.html#cb45-6"></a></span>
+<span id="cb45-7"><a href="利用wgcna构建网络.html#cb45-7"></a><span class="co"># 选择指定模块</span></span>
+<span id="cb45-8"><a href="利用wgcna构建网络.html#cb45-8"></a>TOM &lt;-<span class="st"> </span>TOM[module_info<span class="op">$</span>OTU_name, module_info<span class="op">$</span>OTU_name]</span>
+<span id="cb45-9"><a href="利用wgcna构建网络.html#cb45-9"></a></span>
+<span id="cb45-10"><a href="利用wgcna构建网络.html#cb45-10"></a>graph_info &lt;-<span class="st"> </span><span class="kw">left_join</span>(module_info, taxonomy_info, <span class="dt">by =</span> <span class="st">&quot;OTU_name&quot;</span>)</span>
+<span id="cb45-11"><a href="利用wgcna构建网络.html#cb45-11"></a></span>
+<span id="cb45-12"><a href="利用wgcna构建网络.html#cb45-12"></a><span class="co"># Converts R-colors to hex colors</span></span>
+<span id="cb45-13"><a href="利用wgcna构建网络.html#cb45-13"></a>color2hex &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb45-14"><a href="利用wgcna构建网络.html#cb45-14"></a>  x &lt;-<span class="st"> </span><span class="kw">col2rgb</span>(x)</span>
+<span id="cb45-15"><a href="利用wgcna构建网络.html#cb45-15"></a>  <span class="kw">rgb</span>(x[<span class="dv">1</span>,], x[<span class="dv">2</span>,], x[<span class="dv">3</span>,], <span class="dt">maxColorValue =</span> <span class="dv">255</span>)</span>
+<span id="cb45-16"><a href="利用wgcna构建网络.html#cb45-16"></a>}</span>
+<span id="cb45-17"><a href="利用wgcna构建网络.html#cb45-17"></a></span>
+<span id="cb45-18"><a href="利用wgcna构建网络.html#cb45-18"></a><span class="co"># Add specific colors to the taxa</span></span>
+<span id="cb45-19"><a href="利用wgcna构建网络.html#cb45-19"></a>taxa_colors &lt;-<span class="st"> </span></span>
+<span id="cb45-20"><a href="利用wgcna构建网络.html#cb45-20"></a><span class="st">  </span>graph_info <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-21"><a href="利用wgcna构建网络.html#cb45-21"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(selected_taxa) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-22"><a href="利用wgcna构建网络.html#cb45-22"></a><span class="st">  </span><span class="kw">unique</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-23"><a href="利用wgcna构建网络.html#cb45-23"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tax_color =</span> <span class="kw">colorRampPalette</span>(RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">8</span>, <span class="st">&quot;Accent&quot;</span>))(<span class="kw">nrow</span>(.)))</span>
+<span id="cb45-24"><a href="利用wgcna构建网络.html#cb45-24"></a></span>
+<span id="cb45-25"><a href="利用wgcna构建网络.html#cb45-25"></a>graph_info_colors &lt;-<span class="st"> </span></span>
+<span id="cb45-26"><a href="利用wgcna构建网络.html#cb45-26"></a><span class="st">  </span><span class="kw">left_join</span>(graph_info, taxa_colors) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-27"><a href="利用wgcna构建网络.html#cb45-27"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">module_color =</span> WGCNA<span class="op">::</span><span class="kw">labels2colors</span>(Module)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-28"><a href="利用wgcna构建网络.html#cb45-28"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">module_color =</span> <span class="kw">color2hex</span>(module_color)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb45-29"><a href="利用wgcna构建网络.html#cb45-29"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">module_color =</span> <span class="kw">paste0</span>(module_color,<span class="dv">70</span>))</span></code></pre></div>
+<pre><code>## Joining, by = &quot;Phylum&quot;</code></pre>
+<p>If all lines are too thick, reduce the strength (between 0 and 1).
+The lower the number the weaker the lines.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="利用wgcna构建网络.html#cb47-1"></a>strength_adjust =<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="利用wgcna构建网络.html#cb48-1"></a>g &lt;-<span class="st"> </span><span class="kw">graph.adjacency</span>(TOM, <span class="dt">mode=</span><span class="st">&quot;undirected&quot;</span>, <span class="dt">weighted=</span> <span class="ot">TRUE</span>)</span>
+<span id="cb48-2"><a href="利用wgcna构建网络.html#cb48-2"></a></span>
+<span id="cb48-3"><a href="利用wgcna构建网络.html#cb48-3"></a><span class="co">#~https://stackoverflow.com/questions/28366329/how-to-scale-edge-colors-igraph</span></span>
+<span id="cb48-4"><a href="利用wgcna构建网络.html#cb48-4"></a>igraph<span class="op">::</span><span class="kw">delete.edges</span>(g, <span class="kw">which</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight <span class="op">&lt;</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## IGRAPH 685677b UNW- 231 0 -- 
+## + attr: name (v/c), weight (e/n)
+## + edges from 685677b (vertex names):</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="利用wgcna构建网络.html#cb50-1"></a><span class="kw">E</span>(g)<span class="op">$</span>width &lt;-<span class="st"> </span><span class="kw">E</span>(g)<span class="op">$</span>weight<span class="op">*</span>strength_adjust <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight)</span>
+<span id="cb50-2"><a href="利用wgcna构建网络.html#cb50-2"></a></span>
+<span id="cb50-3"><a href="利用wgcna构建网络.html#cb50-3"></a><span class="kw">set.seed</span>(<span class="dv">231</span>) <span class="co"># Ensures the same layout given the same data.</span></span>
+<span id="cb50-4"><a href="利用wgcna构建网络.html#cb50-4"></a>l &lt;-<span class="st"> </span><span class="kw">layout_with_fr</span>(g, <span class="dt">weights =</span> <span class="kw">E</span>(g)<span class="op">$</span>weight)</span>
+<span id="cb50-5"><a href="利用wgcna构建网络.html#cb50-5"></a></span>
+<span id="cb50-6"><a href="利用wgcna构建网络.html#cb50-6"></a></span>
+<span id="cb50-7"><a href="利用wgcna构建网络.html#cb50-7"></a><span class="co"># Order graph_info_colors by the graph </span></span>
+<span id="cb50-8"><a href="利用wgcna构建网络.html#cb50-8"></a>graph_info_colors &lt;-<span class="st"> </span>graph_info_colors[<span class="kw">which</span>(graph_info_colors<span class="op">$</span>OTU_name <span class="op">%in%</span><span class="st"> </span><span class="kw">V</span>(g)<span class="op">$</span>name),]</span>
+<span id="cb50-9"><a href="利用wgcna构建网络.html#cb50-9"></a></span>
+<span id="cb50-10"><a href="利用wgcna构建网络.html#cb50-10"></a><span class="co"># Ensure that the names are in the same order</span></span>
+<span id="cb50-11"><a href="利用wgcna构建网络.html#cb50-11"></a><span class="cf">if</span>(<span class="kw">all</span>(<span class="kw">V</span>(g)<span class="op">$</span>name <span class="op">==</span><span class="st"> </span>graph_info_colors<span class="op">$</span>OTU_name)){<span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">OTU names match&quot;</span>)}</span></code></pre></div>
+<pre><code>## 
+## OTU names match</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="利用wgcna构建网络.html#cb52-1"></a><span class="co"># Add square shapes to hub OTUs</span></span>
+<span id="cb52-2"><a href="利用wgcna构建网络.html#cb52-2"></a><span class="kw">V</span>(g)<span class="op">$</span>shape &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(g)<span class="op">$</span>name <span class="op">%in%</span><span class="st"> </span>hubs[<span class="op">-</span><span class="dv">1</span>], <span class="st">&quot;square&quot;</span>, <span class="st">&quot;circle&quot;</span>) <span class="co">#-1 means dont use module 0</span></span>
+<span id="cb52-3"><a href="利用wgcna构建网络.html#cb52-3"></a></span>
+<span id="cb52-4"><a href="利用wgcna构建网络.html#cb52-4"></a><span class="co"># OTUs in modules have larger nodes</span></span>
+<span id="cb52-5"><a href="利用wgcna构建网络.html#cb52-5"></a><span class="kw">V</span>(g)<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">ifelse</span>(graph_info_colors<span class="op">$</span>Module <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb52-6"><a href="利用wgcna构建网络.html#cb52-6"></a></span>
+<span id="cb52-7"><a href="利用wgcna构建网络.html#cb52-7"></a><span class="co"># And larger text</span></span>
+<span id="cb52-8"><a href="利用wgcna构建网络.html#cb52-8"></a><span class="kw">V</span>(g)<span class="op">$</span>label.cex &lt;-<span class="st"> </span><span class="kw">ifelse</span>(graph_info_colors<span class="op">$</span>Module <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>, <span class="fl">0.8</span>, <span class="fl">0.4</span>)</span>
+<span id="cb52-9"><a href="利用wgcna构建网络.html#cb52-9"></a></span>
+<span id="cb52-10"><a href="利用wgcna构建网络.html#cb52-10"></a><span class="co"># Remove everything but the number to increase readability</span></span>
+<span id="cb52-11"><a href="利用wgcna构建网络.html#cb52-11"></a><span class="kw">V</span>(g)<span class="op">$</span>name =<span class="st">  </span><span class="kw">sub</span>(<span class="st">&quot;OTU_&quot;</span>, <span class="st">&quot;&quot;</span>, graph_info_colors<span class="op">$</span>OTU_name)</span></code></pre></div>
+<p>Find distinct entires for the plot legends</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="利用wgcna构建网络.html#cb53-1"></a>module_labels &lt;-<span class="st"> </span></span>
+<span id="cb53-2"><a href="利用wgcna构建网络.html#cb53-2"></a><span class="st">  </span>graph_info_colors <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-3"><a href="利用wgcna构建网络.html#cb53-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Module, module_color) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-4"><a href="利用wgcna构建网络.html#cb53-4"></a><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-5"><a href="利用wgcna构建网络.html#cb53-5"></a><span class="st">  </span><span class="kw">arrange</span>(Module)</span>
+<span id="cb53-6"><a href="利用wgcna构建网络.html#cb53-6"></a></span>
+<span id="cb53-7"><a href="利用wgcna构建网络.html#cb53-7"></a>tax_labels &lt;-<span class="st"> </span></span>
+<span id="cb53-8"><a href="利用wgcna构建网络.html#cb53-8"></a><span class="st">  </span>graph_info_colors <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-9"><a href="利用wgcna构建网络.html#cb53-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(selected_taxa, tax_color) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-10"><a href="利用wgcna构建网络.html#cb53-10"></a><span class="st">  </span><span class="kw">distinct</span>()</span></code></pre></div>
+<p>Plot the graphs, leftmost is colored by module, rightmost is colored by taxonomic classification</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="利用wgcna构建网络.html#cb54-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb54-2"><a href="利用wgcna构建网络.html#cb54-2"></a></span>
+<span id="cb54-3"><a href="利用wgcna构建网络.html#cb54-3"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb54-4"><a href="利用wgcna构建网络.html#cb54-4"></a></span>
+<span id="cb54-5"><a href="利用wgcna构建网络.html#cb54-5"></a><span class="kw">plot</span>(g, <span class="dt">layout =</span> l, <span class="dt">vertex.color =</span> graph_info_colors<span class="op">$</span>module_color)</span>
+<span id="cb54-6"><a href="利用wgcna构建网络.html#cb54-6"></a><span class="co"># legend(&quot;topleft&quot;, legend = paste0(&quot;mM&quot;, 0:(nrow(module_labels)-1)), fill=module_labels$module_color)</span></span>
+<span id="cb54-7"><a href="利用wgcna构建网络.html#cb54-7"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> <span class="kw">paste0</span>(<span class="st">&quot;mM&quot;</span>, <span class="dv">0</span><span class="op">:</span>(<span class="kw">nrow</span>(module_labels)<span class="op">-</span><span class="dv">1</span>)), <span class="dt">fill=</span>module_labels<span class="op">$</span>module_color)</span>
+<span id="cb54-8"><a href="利用wgcna构建网络.html#cb54-8"></a></span>
+<span id="cb54-9"><a href="利用wgcna构建网络.html#cb54-9"></a><span class="kw">plot</span>(g, <span class="dt">layout =</span> l, <span class="dt">vertex.color =</span> graph_info_colors<span class="op">$</span>tax_color)</span>
+<span id="cb54-10"><a href="利用wgcna构建网络.html#cb54-10"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> tax_labels <span class="op">%&gt;%</span><span class="st"> </span>.[,<span class="dv">1</span>], <span class="dt">fill=</span>tax_labels<span class="op">$</span>tax_color)</span></code></pre></div>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-38-1.png" width="1440" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="利用wgcna构建网络.html#cb55-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="宏基因组测序数据" class="section level2 hasAnchor">
+<h2><span class="header-section-number">2.2</span> 宏基因组测序数据<a href="利用wgcna构建网络.html#宏基因组测序数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>species level table</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="利用wgcna构建网络.html#cb56-1"></a>mgs &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metagenomics.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>) <span class="co"># read metagenomic species level data</span></span></code></pre></div>
+<p>taxa table</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="利用wgcna构建网络.html#cb57-1"></a>mgs_profile &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metaphlan2_merged.tsv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>) <span class="co"># read metagenomic hirerachy table，only need ID column</span></span>
+<span id="cb57-2"><a href="利用wgcna构建网络.html#cb57-2"></a>mgs_species &lt;-<span class="st"> </span>mgs_profile <span class="op">%&gt;%</span></span>
+<span id="cb57-3"><a href="利用wgcna构建网络.html#cb57-3"></a><span class="st">  </span>.[<span class="kw">sapply</span>(<span class="kw">str_split</span>(mgs_profile<span class="op">$</span>ID, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">|&quot;</span>), <span class="cf">function</span>(x) <span class="kw">length</span>(x) <span class="op">==</span><span class="st"> </span><span class="dv">7</span>), ] </span>
+<span id="cb57-4"><a href="利用wgcna构建网络.html#cb57-4"></a>taxa_table &lt;-<span class="st"> </span><span class="kw">str_split_fixed</span>(mgs_species<span class="op">$</span>ID,<span class="st">&quot;</span><span class="ch">\\</span><span class="st">|&quot;</span>, <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb57-5"><a href="利用wgcna构建网络.html#cb57-5"></a><span class="kw">colnames</span>(taxa_table) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Kingdom&quot;</span>, <span class="st">&quot;Phylum&quot;</span>, <span class="st">&quot;Class&quot;</span>, <span class="st">&quot;Order&quot;</span>, <span class="st">&quot;Family&quot;</span>, <span class="st">&quot;Genus&quot;</span>, <span class="st">&quot;Species&quot;</span>)</span>
+<span id="cb57-6"><a href="利用wgcna构建网络.html#cb57-6"></a><span class="kw">rownames</span>(taxa_table) &lt;-<span class="st"> </span><span class="kw">str_replace</span>(taxa_table<span class="op">$</span>Species, <span class="st">&quot;s__&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>后续标准化及构建network处理与16S数据相同</p>
+</div>
+<div id="代谢数据" class="section level2 hasAnchor">
+<h2><span class="header-section-number">2.3</span> 代谢数据<a href="利用wgcna构建网络.html#代谢数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>代谢数据</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="利用wgcna构建网络.html#cb58-1"></a>metabolites_data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/metabolic.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>) <span class="co"># read metabolic data</span></span></code></pre></div>
+<p>代谢层级关系</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="利用wgcna构建网络.html#cb59-1"></a>metabolites_level &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/HAllA/GvHD/ALL_sample_data.xlsx&quot;</span>, <span class="dt">sheetIndex =</span> <span class="dv">1</span>) <span class="co"># read metabolic hirerachy table</span></span>
+<span id="cb59-2"><a href="利用wgcna构建网络.html#cb59-2"></a>metabolites_level &lt;-<span class="st"> </span>metabolites_level <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Index, Class.I, Class.II)</span>
+<span id="cb59-3"><a href="利用wgcna构建网络.html#cb59-3"></a>metabolites_level &lt;-<span class="st"> </span>metabolites_level <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;Index&quot;</span>)</span></code></pre></div>
+<p>后续标准化及构建network处理与16S数据相同</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="实例展示.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/XbiomeAnalysis/OMicsAnalysis/blob/main/01-WGCNA_network.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["OMics analysis workflow.pdf", "OMics analysis workflow.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
