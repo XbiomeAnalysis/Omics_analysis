@@ -23,7 +23,7 @@
 <meta name="author" content="Zhengnong Zhu, Yifan Zhao and Hua Zou" />
 
 
-<meta name="date" content="2022-08-08" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,7 +194,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="network-analysis-1.html"><a href="network-analysis-1.html#dissimilarity-based-networks"><i class="fa fa-check"></i><b>4.6</b> Dissimilarity-based Networks</a><ul>
 <li class="chapter" data-level="4.6.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#building-network-module"><i class="fa fa-check"></i><b>4.6.1</b> Building network module</a></li>
-<li class="chapter" data-level="4.6.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-5"><i class="fa fa-check"></i><b>4.6.2</b> Visualizing the network</a></li>
+<li class="chapter" data-level="4.6.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#analyzing-the-constructed-network-1"><i class="fa fa-check"></i><b>4.6.2</b> Analyzing the constructed network</a></li>
+<li class="chapter" data-level="4.6.3" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-5"><i class="fa fa-check"></i><b>4.6.3</b> Visualizing the network</a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="network-analysis-1.html"><a href="network-analysis-1.html#network-comparison"><i class="fa fa-check"></i><b>4.7</b> Network comparison</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#data-preparing"><i class="fa fa-check"></i><b>4.7.1</b> Data preparing</a></li>
@@ -559,7 +560,12 @@ et al., 2020].</p>
 <span id="cb167-8"><a href="network-analysis-1.html#cb167-8"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">title =</span> <span class="st">&quot;estimated association:&quot;</span>,</span>
 <span id="cb167-9"><a href="network-analysis-1.html#cb167-9"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>), </span>
 <span id="cb167-10"><a href="network-analysis-1.html#cb167-10"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-110-1.png" width="768" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-113"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-113-1.png" alt="Network on metabolomics with SPRING associations" width="768" />
+<p class="caption">
+Figure 4.1: Network on metabolomics with SPRING associations
+</p>
+</div>
 <p>Note that edge weights are (non-negative) similarities, however, the edges belonging to negative estimated associations are colored in red by default (negDiffCol = TRUE).</p>
 </div>
 </div>
@@ -606,7 +612,12 @@ et al., 2020].</p>
 <span id="cb172-10"><a href="network-analysis-1.html#cb172-10"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">title =</span> <span class="st">&quot;estimated correlation:&quot;</span>, </span>
 <span id="cb172-11"><a href="network-analysis-1.html#cb172-11"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>), </span>
 <span id="cb172-12"><a href="network-analysis-1.html#cb172-12"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-112-1.png" width="768" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-115"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-115-1.png" alt="Network on metabolomics with Pearson associations" width="768" />
+<p class="caption">
+Figure 4.2: Network on metabolomics with Pearson associations
+</p>
+</div>
 <ul>
 <li><p>improve the visualization by changing the following arguments:</p>
 <ul>
@@ -632,7 +643,12 @@ et al., 2020].</p>
 <span id="cb173-14"><a href="network-analysis-1.html#cb173-14"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">title =</span> <span class="st">&quot;estimated correlation:&quot;</span>,</span>
 <span id="cb173-15"><a href="network-analysis-1.html#cb173-15"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>),</span>
 <span id="cb173-16"><a href="network-analysis-1.html#cb173-16"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-113-1.png" width="1152" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-116"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-116-1.png" alt="Network on metabolomics with Pearson associations (improve)" width="1152" />
+<p class="caption">
+Figure 4.3: Network on metabolomics with Pearson associations (improve)
+</p>
+</div>
 </div>
 </div>
 <div id="single-network-with-spieceasi-correlation-as-association-measure" class="section level3 hasAnchor">
@@ -686,7 +702,12 @@ et al., 2020].</p>
 <span id="cb180-16"><a href="network-analysis-1.html#cb180-16"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">title =</span> <span class="st">&quot;estimated correlation:&quot;</span>,</span>
 <span id="cb180-17"><a href="network-analysis-1.html#cb180-17"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>),</span>
 <span id="cb180-18"><a href="network-analysis-1.html#cb180-18"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-115-1.png" width="1152" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-118"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-118-1.png" alt="Network on metabolomics with SpiecEasi associations" width="1152" />
+<p class="caption">
+Figure 4.4: Network on metabolomics with SpiecEasi associations
+</p>
+</div>
 </div>
 </div>
 <div id="single-network-with-wgcna-bicor-as-association-measure" class="section level3 hasAnchor">
@@ -741,7 +762,12 @@ et al., 2020].</p>
 <span id="cb188-16"><a href="network-analysis-1.html#cb188-16"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">title =</span> <span class="st">&quot;estimated correlation:&quot;</span>,</span>
 <span id="cb188-17"><a href="network-analysis-1.html#cb188-17"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>),</span>
 <span id="cb188-18"><a href="network-analysis-1.html#cb188-18"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-117-1.png" width="1152" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-120"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-120-1.png" alt="Network on metabolomics with WGCNA associations" width="1152" />
+<p class="caption">
+Figure 4.5: Network on metabolomics with WGCNA associations
+</p>
+</div>
 </div>
 </div>
 <div id="single-network-with-sparcc-correlation-as-association-measure" class="section level3 hasAnchor">
@@ -794,7 +820,12 @@ et al., 2020].</p>
 <span id="cb193-16"><a href="network-analysis-1.html#cb193-16"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">title =</span> <span class="st">&quot;estimated correlation:&quot;</span>,</span>
 <span id="cb193-17"><a href="network-analysis-1.html#cb193-17"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>),</span>
 <span id="cb193-18"><a href="network-analysis-1.html#cb193-18"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-119-1.png" width="1152" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-122"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-122-1.png" alt="Network on metabolomics with sparcc associations" width="1152" />
+<p class="caption">
+Figure 4.6: Network on metabolomics with sparcc associations
+</p>
+</div>
 </div>
 </div>
 </div>
@@ -834,50 +865,197 @@ et al., 2020].</p>
 ## 
 ## Sparsify dissimilarities via &#39;knn&#39; ... Done.</code></pre>
 </div>
-<div id="visualizing-the-network-5" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.2</span> Visualizing the network<a href="network-analysis-1.html#visualizing-the-network-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="analyzing-the-constructed-network-1" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.6.2</span> Analyzing the constructed network<a href="network-analysis-1.html#analyzing-the-constructed-network-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>NetCoMi’s <code>netAnalyze()</code> function is used for analyzing the constructed network(s).</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="network-analysis-1.html#cb200-1"></a>props_aitchison &lt;-<span class="st"> </span><span class="kw">netAnalyze</span>(net_aitchison,</span>
 <span id="cb200-2"><a href="network-analysis-1.html#cb200-2"></a>                              <span class="dt">clustMethod =</span> <span class="st">&quot;hierarchical&quot;</span>,</span>
 <span id="cb200-3"><a href="network-analysis-1.html#cb200-3"></a>                              <span class="dt">clustPar =</span> <span class="kw">list</span>(<span class="dt">method =</span> <span class="st">&quot;average&quot;</span>, <span class="dt">k =</span> <span class="dv">3</span>),</span>
 <span id="cb200-4"><a href="network-analysis-1.html#cb200-4"></a>                              <span class="dt">hubPar =</span> <span class="st">&quot;eigenvector&quot;</span>)</span>
 <span id="cb200-5"><a href="network-analysis-1.html#cb200-5"></a></span>
-<span id="cb200-6"><a href="network-analysis-1.html#cb200-6"></a><span class="kw">plot</span>(props_aitchison, </span>
-<span id="cb200-7"><a href="network-analysis-1.html#cb200-7"></a>     <span class="dt">nodeColor =</span> <span class="st">&quot;cluster&quot;</span>, </span>
-<span id="cb200-8"><a href="network-analysis-1.html#cb200-8"></a>     <span class="dt">nodeSize =</span> <span class="st">&quot;eigenvector&quot;</span>,</span>
-<span id="cb200-9"><a href="network-analysis-1.html#cb200-9"></a>     <span class="dt">repulsion =</span> <span class="fl">0.8</span>,</span>
-<span id="cb200-10"><a href="network-analysis-1.html#cb200-10"></a>     <span class="dt">rmSingles =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb200-11"><a href="network-analysis-1.html#cb200-11"></a>     <span class="dt">labelScale =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb200-12"><a href="network-analysis-1.html#cb200-12"></a>     <span class="dt">cexLabels =</span> <span class="fl">1.6</span>,</span>
-<span id="cb200-13"><a href="network-analysis-1.html#cb200-13"></a>     <span class="dt">nodeSizeSpread =</span> <span class="dv">3</span>,</span>
-<span id="cb200-14"><a href="network-analysis-1.html#cb200-14"></a>     <span class="dt">cexNodes =</span> <span class="fl">1.5</span>,</span>
-<span id="cb200-15"><a href="network-analysis-1.html#cb200-15"></a>     <span class="dt">title1 =</span> <span class="st">&quot;Network on metabolomics with Aitchison distance&quot;</span>, </span>
-<span id="cb200-16"><a href="network-analysis-1.html#cb200-16"></a>     <span class="dt">showTitle =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb200-17"><a href="network-analysis-1.html#cb200-17"></a>     <span class="dt">cexTitle =</span> <span class="fl">1.5</span>,</span>
-<span id="cb200-18"><a href="network-analysis-1.html#cb200-18"></a>     <span class="dt">hubTransp =</span> <span class="dv">50</span>,</span>
-<span id="cb200-19"><a href="network-analysis-1.html#cb200-19"></a>     <span class="dt">edgeTranspLow =</span> <span class="dv">60</span>,</span>
-<span id="cb200-20"><a href="network-analysis-1.html#cb200-20"></a>     <span class="dt">charToRm =</span> <span class="st">&quot;00000&quot;</span>,</span>
-<span id="cb200-21"><a href="network-analysis-1.html#cb200-21"></a>     <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb200-22"><a href="network-analysis-1.html#cb200-22"></a></span>
-<span id="cb200-23"><a href="network-analysis-1.html#cb200-23"></a><span class="co"># plot(props_aitchison, </span></span>
-<span id="cb200-24"><a href="network-analysis-1.html#cb200-24"></a><span class="co">#      nodeColor = &quot;cluster&quot;, </span></span>
-<span id="cb200-25"><a href="network-analysis-1.html#cb200-25"></a><span class="co">#      nodeSize = &quot;eigenvector&quot;,</span></span>
-<span id="cb200-26"><a href="network-analysis-1.html#cb200-26"></a><span class="co">#      hubTransp = 50,</span></span>
-<span id="cb200-27"><a href="network-analysis-1.html#cb200-27"></a><span class="co">#      edgeTranspLow = 60,</span></span>
-<span id="cb200-28"><a href="network-analysis-1.html#cb200-28"></a><span class="co">#      charToRm = &quot;00000&quot;,</span></span>
-<span id="cb200-29"><a href="network-analysis-1.html#cb200-29"></a><span class="co">#      mar = c(1, 3, 3, 5))</span></span>
-<span id="cb200-30"><a href="network-analysis-1.html#cb200-30"></a></span>
-<span id="cb200-31"><a href="network-analysis-1.html#cb200-31"></a><span class="co"># get green color with 50% transparency</span></span>
-<span id="cb200-32"><a href="network-analysis-1.html#cb200-32"></a>green2 &lt;-<span class="st"> </span><span class="kw">colToTransp</span>(<span class="st">&quot;#009900&quot;</span>, <span class="dv">40</span>)</span>
-<span id="cb200-33"><a href="network-analysis-1.html#cb200-33"></a></span>
-<span id="cb200-34"><a href="network-analysis-1.html#cb200-34"></a><span class="kw">legend</span>(<span class="fl">0.4</span>, <span class="fl">1.1</span>,</span>
-<span id="cb200-35"><a href="network-analysis-1.html#cb200-35"></a>       <span class="dt">cex =</span> <span class="fl">1.5</span>,</span>
-<span id="cb200-36"><a href="network-analysis-1.html#cb200-36"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;high similarity (low Aitchison distance)&quot;</span>,</span>
-<span id="cb200-37"><a href="network-analysis-1.html#cb200-37"></a>                  <span class="st">&quot;low similarity (high Aitchison distance)&quot;</span>), </span>
-<span id="cb200-38"><a href="network-analysis-1.html#cb200-38"></a>       <span class="dt">lty =</span> <span class="dv">1</span>, </span>
-<span id="cb200-39"><a href="network-analysis-1.html#cb200-39"></a>       <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>),</span>
-<span id="cb200-40"><a href="network-analysis-1.html#cb200-40"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, green2),</span>
-<span id="cb200-41"><a href="network-analysis-1.html#cb200-41"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-121-1.png" width="1152" /></p>
+<span id="cb200-6"><a href="network-analysis-1.html#cb200-6"></a><span class="kw">summary</span>(props_aitchison, <span class="dt">numbNodes =</span> 5L)</span></code></pre></div>
+<pre><code>## 
+## Component sizes
+## ```````````````        
+## size: 45
+##    #:  1
+## ______________________________
+## Global network properties
+## `````````````````````````
+##                                   
+## Number of components       1.00000
+## Clustering coefficient     0.40878
+## Modularity                 0.45394
+## Positive edge percentage 100.00000
+## Edge density               0.10707
+## Natural connectivity       0.07361
+## Vertex connectivity        1.00000
+## Edge connectivity          1.00000
+## Average dissimilarity*     0.91417
+## Average path length**      1.09339
+## 
+##  *Dissimilarity = 1 - edge weight
+## **Path length: Units with average dissimilarity
+## 
+## ______________________________
+## Clusters
+## - In the whole network
+## - Algorithm: hierarchical
+## ````````````````````````` 
+##              
+## name:  1  2 3
+##    #: 26 15 4
+## 
+## ______________________________
+## Hubs
+## - In alphabetical/numerical order
+## - Based on empirical quantiles of centralities
+## ```````````````````````````````````````````````        
+##  P101009
+##  P101027
+##  P101081
+## 
+## ______________________________
+## Centrality measures
+## - In decreasing order
+## - Computed for the complete network
+## ````````````````````````````````````
+## Degree (normalized):
+##                
+## P101007 0.31818
+## P101013 0.22727
+## P101009 0.20455
+## P101018 0.18182
+## P101027 0.18182
+## 
+## Betweenness centrality (normalized):
+##                
+## P101069 0.45983
+## P101031 0.44397
+## P101007 0.43763
+## P101050 0.40169
+## P101004 0.27590
+## 
+## Closeness centrality (normalized):
+##                
+## P101064 3.47289
+## P101009 3.33131
+## P101057 3.25585
+## P101004 3.08595
+## P101007 2.94787
+## 
+## Eigenvector centrality (normalized):
+##                
+## P101009 1.00000
+## P101027 0.90864
+## P101081 0.81874
+## P101004 0.77399
+## P101012 0.59863</code></pre>
+</div>
+<div id="visualizing-the-network-5" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.6.3</span> Visualizing the network<a href="network-analysis-1.html#visualizing-the-network-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>primary plot</li>
+</ul>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="network-analysis-1.html#cb202-1"></a><span class="kw">plot</span>(props_aitchison, </span>
+<span id="cb202-2"><a href="network-analysis-1.html#cb202-2"></a>     <span class="dt">nodeColor =</span> <span class="st">&quot;cluster&quot;</span>, </span>
+<span id="cb202-3"><a href="network-analysis-1.html#cb202-3"></a>     <span class="dt">nodeSize =</span> <span class="st">&quot;eigenvector&quot;</span>,</span>
+<span id="cb202-4"><a href="network-analysis-1.html#cb202-4"></a>     <span class="dt">repulsion =</span> <span class="fl">0.8</span>,</span>
+<span id="cb202-5"><a href="network-analysis-1.html#cb202-5"></a>     <span class="dt">rmSingles =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb202-6"><a href="network-analysis-1.html#cb202-6"></a>     <span class="dt">labelScale =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb202-7"><a href="network-analysis-1.html#cb202-7"></a>     <span class="dt">cexLabels =</span> <span class="fl">1.6</span>,</span>
+<span id="cb202-8"><a href="network-analysis-1.html#cb202-8"></a>     <span class="dt">nodeSizeSpread =</span> <span class="dv">3</span>,</span>
+<span id="cb202-9"><a href="network-analysis-1.html#cb202-9"></a>     <span class="dt">cexNodes =</span> <span class="fl">1.5</span>,</span>
+<span id="cb202-10"><a href="network-analysis-1.html#cb202-10"></a>     <span class="dt">title1 =</span> <span class="st">&quot;Network on metabolomics with Aitchison distance&quot;</span>, </span>
+<span id="cb202-11"><a href="network-analysis-1.html#cb202-11"></a>     <span class="dt">showTitle =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb202-12"><a href="network-analysis-1.html#cb202-12"></a>     <span class="dt">cexTitle =</span> <span class="fl">1.5</span>,</span>
+<span id="cb202-13"><a href="network-analysis-1.html#cb202-13"></a>     <span class="dt">hubTransp =</span> <span class="dv">50</span>,</span>
+<span id="cb202-14"><a href="network-analysis-1.html#cb202-14"></a>     <span class="dt">edgeTranspLow =</span> <span class="dv">60</span>,</span>
+<span id="cb202-15"><a href="network-analysis-1.html#cb202-15"></a>     <span class="dt">charToRm =</span> <span class="st">&quot;00000&quot;</span>,</span>
+<span id="cb202-16"><a href="network-analysis-1.html#cb202-16"></a>     <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb202-17"><a href="network-analysis-1.html#cb202-17"></a></span>
+<span id="cb202-18"><a href="network-analysis-1.html#cb202-18"></a><span class="co"># plot(props_aitchison, </span></span>
+<span id="cb202-19"><a href="network-analysis-1.html#cb202-19"></a><span class="co">#      nodeColor = &quot;cluster&quot;, </span></span>
+<span id="cb202-20"><a href="network-analysis-1.html#cb202-20"></a><span class="co">#      nodeSize = &quot;eigenvector&quot;,</span></span>
+<span id="cb202-21"><a href="network-analysis-1.html#cb202-21"></a><span class="co">#      hubTransp = 50,</span></span>
+<span id="cb202-22"><a href="network-analysis-1.html#cb202-22"></a><span class="co">#      edgeTranspLow = 60,</span></span>
+<span id="cb202-23"><a href="network-analysis-1.html#cb202-23"></a><span class="co">#      charToRm = &quot;00000&quot;,</span></span>
+<span id="cb202-24"><a href="network-analysis-1.html#cb202-24"></a><span class="co">#      mar = c(1, 3, 3, 5))</span></span>
+<span id="cb202-25"><a href="network-analysis-1.html#cb202-25"></a></span>
+<span id="cb202-26"><a href="network-analysis-1.html#cb202-26"></a><span class="co"># get green color with 50% transparency</span></span>
+<span id="cb202-27"><a href="network-analysis-1.html#cb202-27"></a>green2 &lt;-<span class="st"> </span><span class="kw">colToTransp</span>(<span class="st">&quot;#009900&quot;</span>, <span class="dv">40</span>)</span>
+<span id="cb202-28"><a href="network-analysis-1.html#cb202-28"></a></span>
+<span id="cb202-29"><a href="network-analysis-1.html#cb202-29"></a><span class="kw">legend</span>(<span class="fl">0.4</span>, <span class="fl">1.1</span>,</span>
+<span id="cb202-30"><a href="network-analysis-1.html#cb202-30"></a>       <span class="dt">cex =</span> <span class="fl">1.5</span>,</span>
+<span id="cb202-31"><a href="network-analysis-1.html#cb202-31"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;high similarity (low Aitchison distance)&quot;</span>,</span>
+<span id="cb202-32"><a href="network-analysis-1.html#cb202-32"></a>                  <span class="st">&quot;low similarity (high Aitchison distance)&quot;</span>), </span>
+<span id="cb202-33"><a href="network-analysis-1.html#cb202-33"></a>       <span class="dt">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb202-34"><a href="network-analysis-1.html#cb202-34"></a>       <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb202-35"><a href="network-analysis-1.html#cb202-35"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, green2),</span>
+<span id="cb202-36"><a href="network-analysis-1.html#cb202-36"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-125"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-125-1.png" alt="Dissimilarity-based Networks" width="1152" />
+<p class="caption">
+Figure 4.7: Dissimilarity-based Networks
+</p>
+</div>
+<ul>
+<li>plot samples with group information</li>
+</ul>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="network-analysis-1.html#cb203-1"></a><span class="co"># Get gorup names from the sample table created before</span></span>
+<span id="cb203-2"><a href="network-analysis-1.html#cb203-2"></a>sampletab &lt;-<span class="st"> </span>se_filter<span class="op">@</span>colData <span class="op">%&gt;%</span></span>
+<span id="cb203-3"><a href="network-analysis-1.html#cb203-3"></a><span class="st">  </span><span class="kw">data.frame</span>()</span>
+<span id="cb203-4"><a href="network-analysis-1.html#cb203-4"></a>group_labels &lt;-<span class="st"> </span><span class="kw">factor</span>(sampletab<span class="op">$</span>group)</span>
+<span id="cb203-5"><a href="network-analysis-1.html#cb203-5"></a><span class="kw">names</span>(group_labels) &lt;-<span class="st"> </span><span class="kw">rownames</span>(sampletab)</span>
+<span id="cb203-6"><a href="network-analysis-1.html#cb203-6"></a></span>
+<span id="cb203-7"><a href="network-analysis-1.html#cb203-7"></a><span class="co"># Define group colors</span></span>
+<span id="cb203-8"><a href="network-analysis-1.html#cb203-8"></a>group_lcol &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;blue3&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb203-9"><a href="network-analysis-1.html#cb203-9"></a></span>
+<span id="cb203-10"><a href="network-analysis-1.html#cb203-10"></a><span class="kw">plot</span>(props_aitchison,</span>
+<span id="cb203-11"><a href="network-analysis-1.html#cb203-11"></a>     <span class="dt">layout =</span> <span class="st">&quot;spring&quot;</span>,</span>
+<span id="cb203-12"><a href="network-analysis-1.html#cb203-12"></a>     <span class="dt">repulsion =</span> <span class="fl">0.84</span>,</span>
+<span id="cb203-13"><a href="network-analysis-1.html#cb203-13"></a>     <span class="dt">shortenLabels =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb203-14"><a href="network-analysis-1.html#cb203-14"></a>     <span class="dt">labelScale =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb203-15"><a href="network-analysis-1.html#cb203-15"></a>     <span class="dt">rmSingles =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb203-16"><a href="network-analysis-1.html#cb203-16"></a>     <span class="dt">nodeSize =</span> <span class="st">&quot;eigenvector&quot;</span>,</span>
+<span id="cb203-17"><a href="network-analysis-1.html#cb203-17"></a>     <span class="dt">nodeSizeSpread =</span> <span class="dv">4</span>,</span>
+<span id="cb203-18"><a href="network-analysis-1.html#cb203-18"></a>     <span class="dt">nodeColor =</span> <span class="st">&quot;feature&quot;</span>, </span>
+<span id="cb203-19"><a href="network-analysis-1.html#cb203-19"></a>     <span class="dt">featVecCol =</span> group_labels, </span>
+<span id="cb203-20"><a href="network-analysis-1.html#cb203-20"></a>     <span class="dt">colorVec =</span>  group_lcol,</span>
+<span id="cb203-21"><a href="network-analysis-1.html#cb203-21"></a>     <span class="dt">posCol =</span> <span class="st">&quot;darkturquoise&quot;</span>, </span>
+<span id="cb203-22"><a href="network-analysis-1.html#cb203-22"></a>     <span class="dt">negCol =</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb203-23"><a href="network-analysis-1.html#cb203-23"></a>     <span class="dt">edgeTranspLow =</span> <span class="dv">0</span>,</span>
+<span id="cb203-24"><a href="network-analysis-1.html#cb203-24"></a>     <span class="dt">edgeTranspHigh =</span> <span class="dv">40</span>,</span>
+<span id="cb203-25"><a href="network-analysis-1.html#cb203-25"></a>     <span class="dt">cexNodes =</span> <span class="dv">2</span>,</span>
+<span id="cb203-26"><a href="network-analysis-1.html#cb203-26"></a>     <span class="dt">cexLabels =</span> <span class="dv">2</span>,</span>
+<span id="cb203-27"><a href="network-analysis-1.html#cb203-27"></a>     <span class="dt">cexHubLabels =</span> <span class="fl">2.5</span>,</span>
+<span id="cb203-28"><a href="network-analysis-1.html#cb203-28"></a>     <span class="dt">title1 =</span> <span class="st">&quot;Network on metabolomics with Aitchison distance&quot;</span>, </span>
+<span id="cb203-29"><a href="network-analysis-1.html#cb203-29"></a>     <span class="dt">showTitle =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb203-30"><a href="network-analysis-1.html#cb203-30"></a>     <span class="dt">cexTitle =</span> <span class="fl">2.3</span>)</span>
+<span id="cb203-31"><a href="network-analysis-1.html#cb203-31"></a></span>
+<span id="cb203-32"><a href="network-analysis-1.html#cb203-32"></a><span class="co"># Colors used in the legend should be equally transparent as in the plot</span></span>
+<span id="cb203-33"><a href="network-analysis-1.html#cb203-33"></a>group_transp &lt;-<span class="st"> </span>NetCoMi<span class="op">:::</span><span class="kw">colToTransp</span>(group_lcol, <span class="dv">60</span>)</span>
+<span id="cb203-34"><a href="network-analysis-1.html#cb203-34"></a></span>
+<span id="cb203-35"><a href="network-analysis-1.html#cb203-35"></a><span class="kw">legend</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pt.cex =</span> <span class="fl">2.5</span>, <span class="dt">title =</span> <span class="st">&quot;Group:&quot;</span>, </span>
+<span id="cb203-36"><a href="network-analysis-1.html#cb203-36"></a>       <span class="dt">legend =</span> <span class="kw">levels</span>(group_labels), <span class="dt">col =</span> group_transp, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>) </span>
+<span id="cb203-37"><a href="network-analysis-1.html#cb203-37"></a></span>
+<span id="cb203-38"><a href="network-analysis-1.html#cb203-38"></a><span class="co"># get green color with 50% transparency</span></span>
+<span id="cb203-39"><a href="network-analysis-1.html#cb203-39"></a>green2 &lt;-<span class="st"> </span><span class="kw">colToTransp</span>(<span class="st">&quot;#009900&quot;</span>, <span class="dv">40</span>)</span>
+<span id="cb203-40"><a href="network-analysis-1.html#cb203-40"></a></span>
+<span id="cb203-41"><a href="network-analysis-1.html#cb203-41"></a><span class="kw">legend</span>(<span class="fl">0.4</span>, <span class="fl">1.1</span>,</span>
+<span id="cb203-42"><a href="network-analysis-1.html#cb203-42"></a>       <span class="dt">cex =</span> <span class="fl">1.5</span>,</span>
+<span id="cb203-43"><a href="network-analysis-1.html#cb203-43"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;high similarity (low Aitchison distance)&quot;</span>,</span>
+<span id="cb203-44"><a href="network-analysis-1.html#cb203-44"></a>                  <span class="st">&quot;low similarity (high Aitchison distance)&quot;</span>), </span>
+<span id="cb203-45"><a href="network-analysis-1.html#cb203-45"></a>       <span class="dt">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb203-46"><a href="network-analysis-1.html#cb203-46"></a>       <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb203-47"><a href="network-analysis-1.html#cb203-47"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkgreen&quot;</span>, green2),</span>
+<span id="cb203-48"><a href="network-analysis-1.html#cb203-48"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-126"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-126-1.png" alt="Dissimilarity-based Networks (group information)" width="1920" />
+<p class="caption">
+Figure 4.8: Dissimilarity-based Networks (group information)
+</p>
+</div>
 </div>
 </div>
 <div id="network-comparison" class="section level2 hasAnchor">
@@ -885,27 +1063,27 @@ et al., 2020].</p>
 <p>Comparing two networks by <strong>NetCoMi</strong>.</p>
 <div id="data-preparing" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.1</span> Data preparing<a href="network-analysis-1.html#data-preparing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="network-analysis-1.html#cb201-1"></a>group_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>)</span>
-<span id="cb201-2"><a href="network-analysis-1.html#cb201-2"></a></span>
-<span id="cb201-3"><a href="network-analysis-1.html#cb201-3"></a>se_filter_subset &lt;-<span class="st"> </span>se_filter[, se_filter<span class="op">$</span>group <span class="op">%in%</span><span class="st"> </span>group_names]</span>
-<span id="cb201-4"><a href="network-analysis-1.html#cb201-4"></a>se_filter_subset<span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(se_filter_subset<span class="op">$</span>group))</span>
-<span id="cb201-5"><a href="network-analysis-1.html#cb201-5"></a>features_tab &lt;-<span class="st"> </span>SummarizedExperiment<span class="op">::</span><span class="kw">assay</span>(se_filter_subset) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb201-6"><a href="network-analysis-1.html#cb201-6"></a><span class="st">  </span><span class="kw">t</span>()</span>
-<span id="cb201-7"><a href="network-analysis-1.html#cb201-7"></a>features_tab[<span class="kw">is.na</span>(features_tab)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb201-8"><a href="network-analysis-1.html#cb201-8"></a></span>
-<span id="cb201-9"><a href="network-analysis-1.html#cb201-9"></a>group_vector &lt;-<span class="st"> </span>se_filter_subset<span class="op">$</span>group</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="network-analysis-1.html#cb204-1"></a>group_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Severe&quot;</span>)</span>
+<span id="cb204-2"><a href="network-analysis-1.html#cb204-2"></a></span>
+<span id="cb204-3"><a href="network-analysis-1.html#cb204-3"></a>se_filter_subset &lt;-<span class="st"> </span>se_filter[, se_filter<span class="op">$</span>group <span class="op">%in%</span><span class="st"> </span>group_names]</span>
+<span id="cb204-4"><a href="network-analysis-1.html#cb204-4"></a>se_filter_subset<span class="op">$</span>group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">as.character</span>(se_filter_subset<span class="op">$</span>group))</span>
+<span id="cb204-5"><a href="network-analysis-1.html#cb204-5"></a>features_tab &lt;-<span class="st"> </span>SummarizedExperiment<span class="op">::</span><span class="kw">assay</span>(se_filter_subset) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb204-6"><a href="network-analysis-1.html#cb204-6"></a><span class="st">  </span><span class="kw">t</span>()</span>
+<span id="cb204-7"><a href="network-analysis-1.html#cb204-7"></a>features_tab[<span class="kw">is.na</span>(features_tab)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb204-8"><a href="network-analysis-1.html#cb204-8"></a></span>
+<span id="cb204-9"><a href="network-analysis-1.html#cb204-9"></a>group_vector &lt;-<span class="st"> </span>se_filter_subset<span class="op">$</span>group</span></code></pre></div>
 </div>
 <div id="building-network-model-5" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.2</span> Building network model<a href="network-analysis-1.html#building-network-model-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="network-analysis-1.html#cb202-1"></a>net_group &lt;-<span class="st"> </span><span class="kw">netConstruct</span>(features_tab, </span>
-<span id="cb202-2"><a href="network-analysis-1.html#cb202-2"></a>                          <span class="dt">group =</span> group_vector, </span>
-<span id="cb202-3"><a href="network-analysis-1.html#cb202-3"></a>                          <span class="dt">measure =</span> <span class="st">&quot;pearson&quot;</span>,</span>
-<span id="cb202-4"><a href="network-analysis-1.html#cb202-4"></a>                          <span class="dt">normMethod =</span> <span class="st">&quot;clr&quot;</span>, </span>
-<span id="cb202-5"><a href="network-analysis-1.html#cb202-5"></a>                          <span class="dt">zeroMethod =</span> <span class="st">&quot;multRepl&quot;</span>,</span>
-<span id="cb202-6"><a href="network-analysis-1.html#cb202-6"></a>                          <span class="dt">sparsMethod =</span> <span class="st">&quot;threshold&quot;</span>, </span>
-<span id="cb202-7"><a href="network-analysis-1.html#cb202-7"></a>                          <span class="dt">thresh =</span> <span class="fl">0.3</span>,</span>
-<span id="cb202-8"><a href="network-analysis-1.html#cb202-8"></a>                          <span class="dt">verbose =</span> <span class="dv">3</span>,</span>
-<span id="cb202-9"><a href="network-analysis-1.html#cb202-9"></a>                          <span class="dt">seed =</span> <span class="dv">123</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="network-analysis-1.html#cb205-1"></a>net_group &lt;-<span class="st"> </span><span class="kw">netConstruct</span>(features_tab, </span>
+<span id="cb205-2"><a href="network-analysis-1.html#cb205-2"></a>                          <span class="dt">group =</span> group_vector, </span>
+<span id="cb205-3"><a href="network-analysis-1.html#cb205-3"></a>                          <span class="dt">measure =</span> <span class="st">&quot;pearson&quot;</span>,</span>
+<span id="cb205-4"><a href="network-analysis-1.html#cb205-4"></a>                          <span class="dt">normMethod =</span> <span class="st">&quot;clr&quot;</span>, </span>
+<span id="cb205-5"><a href="network-analysis-1.html#cb205-5"></a>                          <span class="dt">zeroMethod =</span> <span class="st">&quot;multRepl&quot;</span>,</span>
+<span id="cb205-6"><a href="network-analysis-1.html#cb205-6"></a>                          <span class="dt">sparsMethod =</span> <span class="st">&quot;threshold&quot;</span>, </span>
+<span id="cb205-7"><a href="network-analysis-1.html#cb205-7"></a>                          <span class="dt">thresh =</span> <span class="fl">0.3</span>,</span>
+<span id="cb205-8"><a href="network-analysis-1.html#cb205-8"></a>                          <span class="dt">verbose =</span> <span class="dv">3</span>,</span>
+<span id="cb205-9"><a href="network-analysis-1.html#cb205-9"></a>                          <span class="dt">seed =</span> <span class="dv">123</span>)</span></code></pre></div>
 <pre><code>## 48 taxa and 26 samples remaining.</code></pre>
 <pre><code>## 
 ## Zero treatment:</code></pre>
@@ -924,20 +1102,20 @@ et al., 2020].</p>
 </div>
 <div id="network-analysis-2" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.3</span> Network analysis<a href="network-analysis-1.html#network-analysis-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="network-analysis-1.html#cb206-1"></a>props_group &lt;-<span class="st"> </span><span class="kw">netAnalyze</span>(net_group, </span>
-<span id="cb206-2"><a href="network-analysis-1.html#cb206-2"></a>                          <span class="dt">centrLCC =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb206-3"><a href="network-analysis-1.html#cb206-3"></a>                          <span class="dt">avDissIgnoreInf =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb206-4"><a href="network-analysis-1.html#cb206-4"></a>                          <span class="dt">sPathNorm =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb206-5"><a href="network-analysis-1.html#cb206-5"></a>                          <span class="dt">clustMethod =</span> <span class="st">&quot;cluster_fast_greedy&quot;</span>,</span>
-<span id="cb206-6"><a href="network-analysis-1.html#cb206-6"></a>                          <span class="dt">hubPar =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>, <span class="st">&quot;between&quot;</span>, <span class="st">&quot;closeness&quot;</span>),</span>
-<span id="cb206-7"><a href="network-analysis-1.html#cb206-7"></a>                          <span class="dt">hubQuant =</span> <span class="fl">0.9</span>,</span>
-<span id="cb206-8"><a href="network-analysis-1.html#cb206-8"></a>                          <span class="dt">lnormFit =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb206-9"><a href="network-analysis-1.html#cb206-9"></a>                          <span class="dt">normDeg =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb206-10"><a href="network-analysis-1.html#cb206-10"></a>                          <span class="dt">normBetw =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb206-11"><a href="network-analysis-1.html#cb206-11"></a>                          <span class="dt">normClose =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb206-12"><a href="network-analysis-1.html#cb206-12"></a>                          <span class="dt">normEigen =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb206-13"><a href="network-analysis-1.html#cb206-13"></a></span>
-<span id="cb206-14"><a href="network-analysis-1.html#cb206-14"></a><span class="kw">summary</span>(props_group)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="network-analysis-1.html#cb209-1"></a>props_group &lt;-<span class="st"> </span><span class="kw">netAnalyze</span>(net_group, </span>
+<span id="cb209-2"><a href="network-analysis-1.html#cb209-2"></a>                          <span class="dt">centrLCC =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb209-3"><a href="network-analysis-1.html#cb209-3"></a>                          <span class="dt">avDissIgnoreInf =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb209-4"><a href="network-analysis-1.html#cb209-4"></a>                          <span class="dt">sPathNorm =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb209-5"><a href="network-analysis-1.html#cb209-5"></a>                          <span class="dt">clustMethod =</span> <span class="st">&quot;cluster_fast_greedy&quot;</span>,</span>
+<span id="cb209-6"><a href="network-analysis-1.html#cb209-6"></a>                          <span class="dt">hubPar =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>, <span class="st">&quot;between&quot;</span>, <span class="st">&quot;closeness&quot;</span>),</span>
+<span id="cb209-7"><a href="network-analysis-1.html#cb209-7"></a>                          <span class="dt">hubQuant =</span> <span class="fl">0.9</span>,</span>
+<span id="cb209-8"><a href="network-analysis-1.html#cb209-8"></a>                          <span class="dt">lnormFit =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb209-9"><a href="network-analysis-1.html#cb209-9"></a>                          <span class="dt">normDeg =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb209-10"><a href="network-analysis-1.html#cb209-10"></a>                          <span class="dt">normBetw =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb209-11"><a href="network-analysis-1.html#cb209-11"></a>                          <span class="dt">normClose =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb209-12"><a href="network-analysis-1.html#cb209-12"></a>                          <span class="dt">normEigen =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb209-13"><a href="network-analysis-1.html#cb209-13"></a></span>
+<span id="cb209-14"><a href="network-analysis-1.html#cb209-14"></a><span class="kw">summary</span>(props_group)</span></code></pre></div>
 <pre><code>## 
 ## Component sizes
 ## ```````````````
@@ -1048,32 +1226,37 @@ et al., 2020].</p>
 </div>
 <div id="visualizing-the-network-6" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.4</span> Visualizing the network<a href="network-analysis-1.html#visualizing-the-network-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="network-analysis-1.html#cb208-1"></a><span class="kw">plot</span>(props_group, </span>
-<span id="cb208-2"><a href="network-analysis-1.html#cb208-2"></a>     <span class="dt">sameLayout =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb208-3"><a href="network-analysis-1.html#cb208-3"></a>     <span class="dt">layoutGroup =</span> <span class="dv">1</span>,</span>
-<span id="cb208-4"><a href="network-analysis-1.html#cb208-4"></a>     <span class="dt">rmSingles =</span> <span class="st">&quot;inboth&quot;</span>, </span>
-<span id="cb208-5"><a href="network-analysis-1.html#cb208-5"></a>     <span class="dt">nodeSize =</span> <span class="st">&quot;mclr&quot;</span>, </span>
-<span id="cb208-6"><a href="network-analysis-1.html#cb208-6"></a>     <span class="dt">labelScale =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb208-7"><a href="network-analysis-1.html#cb208-7"></a>     <span class="dt">cexNodes =</span> <span class="dv">1</span>, </span>
-<span id="cb208-8"><a href="network-analysis-1.html#cb208-8"></a>     <span class="dt">cexLabels =</span> <span class="fl">1.5</span>,</span>
-<span id="cb208-9"><a href="network-analysis-1.html#cb208-9"></a>     <span class="dt">cexHubLabels =</span> <span class="dv">2</span>,</span>
-<span id="cb208-10"><a href="network-analysis-1.html#cb208-10"></a>     <span class="dt">cexTitle =</span> <span class="dv">2</span>,</span>
-<span id="cb208-11"><a href="network-analysis-1.html#cb208-11"></a>     <span class="dt">groupNames =</span> group_names,</span>
-<span id="cb208-12"><a href="network-analysis-1.html#cb208-12"></a>     <span class="dt">hubBorderCol  =</span> <span class="st">&quot;gray40&quot;</span>)</span>
-<span id="cb208-13"><a href="network-analysis-1.html#cb208-13"></a></span>
-<span id="cb208-14"><a href="network-analysis-1.html#cb208-14"></a><span class="kw">legend</span>(<span class="st">&quot;bottom&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;estimated association:&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>), </span>
-<span id="cb208-15"><a href="network-analysis-1.html#cb208-15"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="dt">inset =</span> <span class="fl">0.04</span>, <span class="dt">cex =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">4</span>, </span>
-<span id="cb208-16"><a href="network-analysis-1.html#cb208-16"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-125-1.png" width="1920" /></p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="network-analysis-1.html#cb211-1"></a><span class="kw">plot</span>(props_group, </span>
+<span id="cb211-2"><a href="network-analysis-1.html#cb211-2"></a>     <span class="dt">sameLayout =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb211-3"><a href="network-analysis-1.html#cb211-3"></a>     <span class="dt">layoutGroup =</span> <span class="dv">1</span>,</span>
+<span id="cb211-4"><a href="network-analysis-1.html#cb211-4"></a>     <span class="dt">rmSingles =</span> <span class="st">&quot;inboth&quot;</span>, </span>
+<span id="cb211-5"><a href="network-analysis-1.html#cb211-5"></a>     <span class="dt">nodeSize =</span> <span class="st">&quot;mclr&quot;</span>, </span>
+<span id="cb211-6"><a href="network-analysis-1.html#cb211-6"></a>     <span class="dt">labelScale =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb211-7"><a href="network-analysis-1.html#cb211-7"></a>     <span class="dt">cexNodes =</span> <span class="dv">1</span>, </span>
+<span id="cb211-8"><a href="network-analysis-1.html#cb211-8"></a>     <span class="dt">cexLabels =</span> <span class="fl">1.5</span>,</span>
+<span id="cb211-9"><a href="network-analysis-1.html#cb211-9"></a>     <span class="dt">cexHubLabels =</span> <span class="dv">2</span>,</span>
+<span id="cb211-10"><a href="network-analysis-1.html#cb211-10"></a>     <span class="dt">cexTitle =</span> <span class="dv">2</span>,</span>
+<span id="cb211-11"><a href="network-analysis-1.html#cb211-11"></a>     <span class="dt">groupNames =</span> group_names,</span>
+<span id="cb211-12"><a href="network-analysis-1.html#cb211-12"></a>     <span class="dt">hubBorderCol  =</span> <span class="st">&quot;gray40&quot;</span>)</span>
+<span id="cb211-13"><a href="network-analysis-1.html#cb211-13"></a></span>
+<span id="cb211-14"><a href="network-analysis-1.html#cb211-14"></a><span class="kw">legend</span>(<span class="st">&quot;bottom&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;estimated association:&quot;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>), </span>
+<span id="cb211-15"><a href="network-analysis-1.html#cb211-15"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;#009900&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="dt">inset =</span> <span class="fl">0.04</span>, <span class="dt">cex =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">4</span>, </span>
+<span id="cb211-16"><a href="network-analysis-1.html#cb211-16"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-130"></span>
+<img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-130-1.png" alt="Network comparison" width="1920" />
+<p class="caption">
+Figure 4.9: Network comparison
+</p>
+</div>
 </div>
 <div id="quantitative-network-comparison" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.7.5</span> Quantitative network comparison<a href="network-analysis-1.html#quantitative-network-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="network-analysis-1.html#cb209-1"></a>comp_group &lt;-<span class="st"> </span><span class="kw">netCompare</span>(props_group, <span class="dt">permTest =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb209-2"><a href="network-analysis-1.html#cb209-2"></a></span>
-<span id="cb209-3"><a href="network-analysis-1.html#cb209-3"></a><span class="kw">summary</span>(comp_group, </span>
-<span id="cb209-4"><a href="network-analysis-1.html#cb209-4"></a>        <span class="dt">groupNames =</span> group_names,</span>
-<span id="cb209-5"><a href="network-analysis-1.html#cb209-5"></a>        <span class="dt">showCentr =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>, <span class="st">&quot;between&quot;</span>, <span class="st">&quot;closeness&quot;</span>), </span>
-<span id="cb209-6"><a href="network-analysis-1.html#cb209-6"></a>        <span class="dt">numbNodes =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="network-analysis-1.html#cb212-1"></a>comp_group &lt;-<span class="st"> </span><span class="kw">netCompare</span>(props_group, <span class="dt">permTest =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb212-2"><a href="network-analysis-1.html#cb212-2"></a></span>
+<span id="cb212-3"><a href="network-analysis-1.html#cb212-3"></a><span class="kw">summary</span>(comp_group, </span>
+<span id="cb212-4"><a href="network-analysis-1.html#cb212-4"></a>        <span class="dt">groupNames =</span> group_names,</span>
+<span id="cb212-5"><a href="network-analysis-1.html#cb212-5"></a>        <span class="dt">showCentr =</span> <span class="kw">c</span>(<span class="st">&quot;degree&quot;</span>, <span class="st">&quot;between&quot;</span>, <span class="st">&quot;closeness&quot;</span>), </span>
+<span id="cb212-6"><a href="network-analysis-1.html#cb212-6"></a>        <span class="dt">numbNodes =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## 
 ## Comparison of Network Properties
 ## ----------------------------------
@@ -1155,7 +1338,7 @@ et al., 2020].</p>
 </div>
 <div id="systematic-information" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.8</span> Systematic Information<a href="network-analysis-1.html#systematic-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="network-analysis-1.html#cb211-1"></a>devtools<span class="op">::</span><span class="kw">session_info</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="network-analysis-1.html#cb214-1"></a>devtools<span class="op">::</span><span class="kw">session_info</span>()</span></code></pre></div>
 <pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value
 ##  version  R version 3.6.3 (2020-02-29)
@@ -1166,7 +1349,7 @@ et al., 2020].</p>
 ##  collate  en_IN.UTF-8
 ##  ctype    en_IN.UTF-8
 ##  tz       Asia/Hong_Kong
-##  date     2022-08-08
+##  date     2022-08-09
 ##  rstudio  1.1.419 (server)
 ##  pandoc   2.7.3 @ /usr/bin/ (via rmarkdown)
 ## 

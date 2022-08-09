@@ -23,7 +23,7 @@
 <meta name="author" content="Zhengnong Zhu, Yifan Zhao and Hua Zou" />
 
 
-<meta name="date" content="2022-08-08" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,7 +194,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="network-analysis-1.html"><a href="network-analysis-1.html#dissimilarity-based-networks"><i class="fa fa-check"></i><b>4.6</b> Dissimilarity-based Networks</a><ul>
 <li class="chapter" data-level="4.6.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#building-network-module"><i class="fa fa-check"></i><b>4.6.1</b> Building network module</a></li>
-<li class="chapter" data-level="4.6.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-5"><i class="fa fa-check"></i><b>4.6.2</b> Visualizing the network</a></li>
+<li class="chapter" data-level="4.6.2" data-path="network-analysis-1.html"><a href="network-analysis-1.html#analyzing-the-constructed-network-1"><i class="fa fa-check"></i><b>4.6.2</b> Analyzing the constructed network</a></li>
+<li class="chapter" data-level="4.6.3" data-path="network-analysis-1.html"><a href="network-analysis-1.html#visualizing-the-network-5"><i class="fa fa-check"></i><b>4.6.3</b> Visualizing the network</a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="network-analysis-1.html"><a href="network-analysis-1.html#network-comparison"><i class="fa fa-check"></i><b>4.7</b> Network comparison</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="network-analysis-1.html"><a href="network-analysis-1.html#data-preparing"><i class="fa fa-check"></i><b>4.7.1</b> Data preparing</a></li>
@@ -248,16 +249,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="利用wgcna构建网络.html#cb3-5"></a><span class="kw">colnames</span>(seq_tab) &lt;-<span class="st"> </span>ASV_index<span class="op">$</span>index</span>
 <span id="cb3-6"><a href="利用wgcna构建网络.html#cb3-6"></a></span>
 <span id="cb3-7"><a href="利用wgcna构建网络.html#cb3-7"></a><span class="kw">datatable</span>(seq_tab[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</span></code></pre></div>
-<div id="htmlwidget-f4ba9785def56237df77" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f4ba9785def56237df77">{"x":{"filter":"none","vertical":false,"data":[["6029","6030","6031","6032","6033","6034","6035","6036","6037","6038"],[5494,1247,4890,14616,2884,3700,0,3548,8483,2911],[20133,7103,286,2915,2184,4228,0,1231,19620,0],[4049,2794,1464,1552,1839,1129,11885,0,5632,259],[165,6983,1078,15950,1172,1173,255,12138,874,11685],[1077,0,48,2278,94,5383,13767,0,4453,680],[4372,2111,7518,0,16579,6182,0,4868,0,0],[0,0,6,0,0,0,0,0,6232,0],[0,489,129,0,199,0,0,815,0,2859],[0,757,3941,0,4056,0,0,1266,0,0],[5695,1042,2813,0,530,2091,0,469,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ASV1<\/th>\n      <th>ASV2<\/th>\n      <th>ASV3<\/th>\n      <th>ASV4<\/th>\n      <th>ASV5<\/th>\n      <th>ASV6<\/th>\n      <th>ASV7<\/th>\n      <th>ASV8<\/th>\n      <th>ASV9<\/th>\n      <th>ASV10<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-114691dfe288c157ae94" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-114691dfe288c157ae94">{"x":{"filter":"none","vertical":false,"data":[["6029","6030","6031","6032","6033","6034","6035","6036","6037","6038"],[5494,1247,4890,14616,2884,3700,0,3548,8483,2911],[20133,7103,286,2915,2184,4228,0,1231,19620,0],[4049,2794,1464,1552,1839,1129,11885,0,5632,259],[165,6983,1078,15950,1172,1173,255,12138,874,11685],[1077,0,48,2278,94,5383,13767,0,4453,680],[4372,2111,7518,0,16579,6182,0,4868,0,0],[0,0,6,0,0,0,0,0,6232,0],[0,489,129,0,199,0,0,815,0,2859],[0,757,3941,0,4056,0,0,1266,0,0],[5695,1042,2813,0,530,2091,0,469,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ASV1<\/th>\n      <th>ASV2<\/th>\n      <th>ASV3<\/th>\n      <th>ASV4<\/th>\n      <th>ASV5<\/th>\n      <th>ASV6<\/th>\n      <th>ASV7<\/th>\n      <th>ASV8<\/th>\n      <th>ASV9<\/th>\n      <th>ASV10<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>taxa table</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="利用wgcna构建网络.html#cb4-1"></a>taxa_tb &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/WGCNA/test/SLE/data/dada2_res.rds&quot;</span>)<span class="op">$</span>tax_tab</span>
 <span id="cb4-2"><a href="利用wgcna构建网络.html#cb4-2"></a>taxa_tb &lt;-<span class="st"> </span><span class="kw">merge</span>(ASV_index, taxa_tb, <span class="dt">by.x =</span> <span class="st">&quot;ASV&quot;</span>, <span class="dt">by.y =</span> <span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="利用wgcna构建网络.html#cb4-3"></a>taxa_tb &lt;-<span class="st"> </span>taxa_tb[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>)] <span class="co"># remove ASV column</span></span>
 <span id="cb4-4"><a href="利用wgcna构建网络.html#cb4-4"></a>taxa_tb &lt;-<span class="st"> </span>taxa_tb <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;index&quot;</span>)</span>
 <span id="cb4-5"><a href="利用wgcna构建网络.html#cb4-5"></a><span class="kw">datatable</span>(taxa_tb[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ])</span></code></pre></div>
-<div id="htmlwidget-2e788bf426e06a2d7ed6" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2e788bf426e06a2d7ed6">{"x":{"filter":"none","vertical":false,"data":[["ASV269","ASV552","ASV368","ASV624","ASV26"],["Bacteria","Bacteria","Bacteria","Bacteria","Bacteria"],["Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes"],["Clostridia","Clostridia","Clostridia","Clostridia","Clostridia"],["Clostridiales","Clostridiales","Clostridiales","Clostridiales","Clostridiales"],["Peptococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae"],["Peptococcus","Subdoligranulum","Subdoligranulum","Subdoligranulum","Subdoligranulum"],[null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Kingdom<\/th>\n      <th>Phylum<\/th>\n      <th>Class<\/th>\n      <th>Order<\/th>\n      <th>Family<\/th>\n      <th>Genus<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a4bd336f0d05fb406337" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4bd336f0d05fb406337">{"x":{"filter":"none","vertical":false,"data":[["ASV269","ASV552","ASV368","ASV624","ASV26"],["Bacteria","Bacteria","Bacteria","Bacteria","Bacteria"],["Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes"],["Clostridia","Clostridia","Clostridia","Clostridia","Clostridia"],["Clostridiales","Clostridiales","Clostridiales","Clostridiales","Clostridiales"],["Peptococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae","Ruminococcaceae"],["Peptococcus","Subdoligranulum","Subdoligranulum","Subdoligranulum","Subdoligranulum"],[null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Kingdom<\/th>\n      <th>Phylum<\/th>\n      <th>Class<\/th>\n      <th>Order<\/th>\n      <th>Family<\/th>\n      <th>Genus<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>移除counts小于500的ASV</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="利用wgcna构建网络.html#cb5-1"></a>seq_tab_filter &lt;-<span class="st"> </span>seq_tab <span class="op">%&gt;%</span><span class="st"> </span>.[, <span class="kw">apply</span>(.<span class="op">&gt;</span><span class="dv">500</span>, <span class="dv">2</span>, any)]</span>
 <span id="cb5-2"><a href="利用wgcna构建网络.html#cb5-2"></a><span class="kw">dim</span>(seq_tab_filter)</span></code></pre></div>
@@ -414,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-59"><a href="利用wgcna构建网络.html#cb16-59"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(scale_independence_plot, mean_connectivity_plot, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">align =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size) -&gt;<span class="st"> </span>si_mc_plot</span>
 <span id="cb16-60"><a href="利用wgcna构建网络.html#cb16-60"></a></span>
 <span id="cb16-61"><a href="利用wgcna构建网络.html#cb16-61"></a>si_mc_plot</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>power</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="利用wgcna构建网络.html#cb17-1"></a>st</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
@@ -468,20 +469,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-15"><a href="利用wgcna构建网络.html#cb22-15"></a><span class="st">  </span><span class="kw">coord_flip</span>()-&gt;<span class="st"> </span>module_size_barplot</span>
 <span id="cb22-16"><a href="利用wgcna构建网络.html#cb22-16"></a></span>
 <span id="cb22-17"><a href="利用wgcna构建网络.html#cb22-17"></a>module_size_barplot</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-19-1.png" width="480" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-22-1.png" width="480" /></p>
 <p>提取模块中的网络</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="利用wgcna构建网络.html#cb23-1"></a><span class="kw">plotEigengeneNetworks</span>(modules.otu<span class="op">$</span>MEs, <span class="st">&quot;Eigengene adjacency heatmap&quot;</span>,</span>
 <span id="cb23-2"><a href="利用wgcna构建网络.html#cb23-2"></a><span class="dt">marDendro =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),</span>
 <span id="cb23-3"><a href="利用wgcna构建网络.html#cb23-3"></a><span class="dt">marHeatmap =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">plotDendrograms =</span> T,</span>
 <span id="cb23-4"><a href="利用wgcna构建网络.html#cb23-4"></a><span class="dt">xLabelsAngle =</span> <span class="dv">90</span>)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="利用wgcna构建网络.html#cb24-1"></a><span class="kw">table</span>(modules.otu<span class="op">$</span>colors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() -&gt;<span class="st"> </span>res</span>
 <span id="cb24-2"><a href="利用wgcna构建网络.html#cb24-2"></a>res<span class="op">$</span><span class="st">`</span><span class="dt">Module color</span><span class="st">`</span> &lt;-<span class="st"> </span>WGCNA<span class="op">::</span><span class="kw">labels2colors</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(res<span class="op">$</span>Var1)))</span>
 <span id="cb24-3"><a href="利用wgcna构建网络.html#cb24-3"></a>res &lt;-<span class="st"> </span>res[, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>)]</span>
 <span id="cb24-4"><a href="利用wgcna构建网络.html#cb24-4"></a><span class="kw">colnames</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Module&quot;</span>, <span class="st">&quot;Module color&quot;</span>, <span class="st">&quot;Number of OTUs&quot;</span>)</span>
 <span id="cb24-5"><a href="利用wgcna构建网络.html#cb24-5"></a>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">datatable</span>()</span></code></pre></div>
-<div id="htmlwidget-715178d5dd2cfabef282" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-715178d5dd2cfabef282">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["grey","turquoise","blue","brown","yellow","green"],[141,58,10,8,8,6]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>Module color<\/th>\n      <th>Number of OTUs<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9119baf5f947e3d6c0dd" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9119baf5f947e3d6c0dd">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["grey","turquoise","blue","brown","yellow","green"],[141,58,10,8,8,6]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>Module color<\/th>\n      <th>Number of OTUs<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Dendrogram and module colors</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="利用wgcna构建网络.html#cb25-1"></a><span class="co"># Plot the dendrogram and the module colors underneath for each block</span></span>
 <span id="cb25-2"><a href="利用wgcna构建网络.html#cb25-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(modules.otu<span class="op">$</span>dendrograms)){</span>
@@ -495,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-10"><a href="利用wgcna构建网络.html#cb25-10"></a>                                    <span class="kw">length</span>(modules.otu<span class="op">$</span>blockGenes[[i]]),</span>
 <span id="cb25-11"><a href="利用wgcna构建网络.html#cb25-11"></a>                                    <span class="st">&quot; OTUs&quot;</span>))</span>
 <span id="cb25-12"><a href="利用wgcna构建网络.html#cb25-12"></a>}</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-25-1.png" width="960" /></p>
 <p>Module (Eigengene) correlation</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="利用wgcna构建网络.html#cb26-1"></a>MEs &lt;-<span class="st"> </span>modules.otu<span class="op">$</span>MEs</span>
 <span id="cb26-2"><a href="利用wgcna构建网络.html#cb26-2"></a></span>
@@ -525,7 +526,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-17"><a href="利用wgcna构建网络.html#cb27-17"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(MEs_R_density, MEs_R_Corr<span class="op">$</span>gtable, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;D&quot;</span>, <span class="st">&quot;E&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size, <span class="dt">rel_widths =</span> <span class="kw">c</span>(<span class="fl">0.6</span>, <span class="dv">1</span>)) -&gt;<span class="st"> </span>density_eigen</span>
 <span id="cb27-18"><a href="利用wgcna构建网络.html#cb27-18"></a></span>
 <span id="cb27-19"><a href="利用wgcna构建网络.html#cb27-19"></a>density_eigen</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-27-1.png" width="960" /></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="利用wgcna构建网络.html#cb28-1"></a><span class="kw">all</span>(<span class="kw">rownames</span>(seq_tab_filter) <span class="op">==</span><span class="st"> </span><span class="kw">rownames</span>(MEs))</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="利用wgcna构建网络.html#cb30-1"></a><span class="kw">dim</span>(seq_tab_filter) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste0</span>(<span class="kw">c</span>(<span class="st">&quot; samples&quot;</span>, <span class="st">&quot; OTUs&quot;</span>))</span></code></pre></div>
@@ -550,7 +551,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb34-14"><a href="利用wgcna构建网络.html#cb34-14"></a>intra_cor &lt;-<span class="st"> </span>intra_cor[<span class="op">-</span>idx]</span>
 <span id="cb34-15"><a href="利用wgcna构建网络.html#cb34-15"></a></span>
 <span id="cb34-16"><a href="利用wgcna构建网络.html#cb34-16"></a><span class="kw">plot</span>(<span class="kw">density</span>(intra_cor), <span class="dt">main =</span> <span class="st">&quot;Correlations with module-eigenOTU (within module correlation)</span><span class="ch">\n</span><span class="st">No ME0&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>Show the same thing, but for each module individually, and color by module color.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="利用wgcna构建网络.html#cb35-1"></a><span class="co"># Corr within modules</span></span>
 <span id="cb35-2"><a href="利用wgcna构建网络.html#cb35-2"></a>corr_within_module &lt;-<span class="st"> </span><span class="cf">function</span>(seq_tab_filter, modules, <span class="dt">module_x =</span> <span class="dv">1</span>){</span>
@@ -577,7 +578,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-23"><a href="利用wgcna构建网络.html#cb35-23"></a>ggplot.list &lt;-<span class="st"> </span>ggplot.list[ggplot.list <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;ME&quot;</span>, <span class="st">&quot;&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">order</span>()]</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="利用wgcna构建网络.html#cb36-1"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> ggplot.list, <span class="dt">ncol =</span> <span class="dv">2</span>) -&gt;<span class="st"> </span>density_all_plot</span>
 <span id="cb36-2"><a href="利用wgcna构建网络.html#cb36-2"></a>density_all_plot</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
 <p>Combine to one plot</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="利用wgcna构建网络.html#cb37-1"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(si_mc_plot , density_eigen, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>)) -&gt;<span class="st"> </span>part_<span class="dv">1</span></span>
 <span id="cb37-2"><a href="利用wgcna构建网络.html#cb37-2"></a></span>
@@ -586,7 +587,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb37-5"><a href="利用wgcna构建网络.html#cb37-5"></a></span>
 <span id="cb37-6"><a href="利用wgcna构建网络.html#cb37-6"></a></span>
 <span id="cb37-7"><a href="利用wgcna构建网络.html#cb37-7"></a>cowplot<span class="op">::</span><span class="kw">plot_grid</span>(part_<span class="dv">2</span>, density_all_plot, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">rel_heights =</span> <span class="kw">c</span>(<span class="fl">0.8</span>,<span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;F&quot;</span>), <span class="dt">label_size =</span> plot_labeling_size)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-29-1.png" width="1152" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-32-1.png" width="1152" /></p>
 <p>Hub genes</p>
 <p>For each module it is possible to pick a hub gene with the function <code>chooseTopHubInEachModule</code>.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="利用wgcna构建网络.html#cb38-1"></a>hubs <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -612,8 +613,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="利用wgcna构建网络.html#cb40-1"></a>res &lt;-<span class="st"> </span>hubOTUs[, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">7</span>)]</span>
 <span id="cb40-2"><a href="利用wgcna构建网络.html#cb40-2"></a><span class="kw">colnames</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Module&quot;</span>, <span class="st">&quot;OTU&quot;</span>, <span class="st">&quot;Phylum&quot;</span>,<span class="st">&quot;Genus&quot;</span>)</span>
 <span id="cb40-3"><a href="利用wgcna构建网络.html#cb40-3"></a>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">datatable</span>()</span></code></pre></div>
-<div id="htmlwidget-5e368c5336c15b454103" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e368c5336c15b454103">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["ASV75","ASV20","ASV248","ASV222","ASV237","ASV214"],["Bacteroidetes","Firmicutes","Firmicutes","Firmicutes","Bacteroidetes","Firmicutes"],["Bacteroidaceae","Lachnospiraceae","Lachnospiraceae","Peptostreptococcaceae","Bacteroidaceae","Erysipelotrichaceae"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>OTU<\/th>\n      <th>Phylum<\/th>\n      <th>Genus<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0a01c8bcaadf38a0d8ea" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a01c8bcaadf38a0d8ea">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["0","1","2","3","4","5"],["ASV75","ASV20","ASV248","ASV222","ASV237","ASV214"],["Bacteroidetes","Firmicutes","Firmicutes","Firmicutes","Bacteroidetes","Firmicutes"],["Bacteroidaceae","Lachnospiraceae","Lachnospiraceae","Peptostreptococcaceae","Bacteroidaceae","Erysipelotrichaceae"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Module<\/th>\n      <th>OTU<\/th>\n      <th>Phylum<\/th>\n      <th>Genus<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>可视化网络图</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="利用wgcna构建网络.html#cb41-1"></a><span class="kw">load</span>(<span class="dt">file =</span> <span class="st">&quot;/share/projects/Analytics/analytics/MultiOmics/tools/Bookdown/result/16S_network_module-block.1.RData&quot;</span>)</span>
 <span id="cb41-2"><a href="利用wgcna构建网络.html#cb41-2"></a><span class="co"># The TOM is saved as a dist object and needs to be converted to a matrix</span></span>
@@ -669,9 +670,9 @@ The lower the number the weaker the lines.</p>
 <span id="cb48-2"><a href="利用wgcna构建网络.html#cb48-2"></a></span>
 <span id="cb48-3"><a href="利用wgcna构建网络.html#cb48-3"></a><span class="co">#~https://stackoverflow.com/questions/28366329/how-to-scale-edge-colors-igraph</span></span>
 <span id="cb48-4"><a href="利用wgcna构建网络.html#cb48-4"></a>igraph<span class="op">::</span><span class="kw">delete.edges</span>(g, <span class="kw">which</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight <span class="op">&lt;</span><span class="dv">1</span>))</span></code></pre></div>
-<pre><code>## IGRAPH 685677b UNW- 231 0 -- 
+<pre><code>## IGRAPH c9ea5d7 UNW- 231 0 -- 
 ## + attr: name (v/c), weight (e/n)
-## + edges from 685677b (vertex names):</code></pre>
+## + edges from c9ea5d7 (vertex names):</code></pre>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="利用wgcna构建网络.html#cb50-1"></a><span class="kw">E</span>(g)<span class="op">$</span>width &lt;-<span class="st"> </span><span class="kw">E</span>(g)<span class="op">$</span>weight<span class="op">*</span>strength_adjust <span class="op">+</span><span class="st"> </span><span class="kw">min</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight)</span>
 <span id="cb50-2"><a href="利用wgcna构建网络.html#cb50-2"></a></span>
 <span id="cb50-3"><a href="利用wgcna构建网络.html#cb50-3"></a><span class="kw">set.seed</span>(<span class="dv">231</span>) <span class="co"># Ensures the same layout given the same data.</span></span>
@@ -718,7 +719,7 @@ The lower the number the weaker the lines.</p>
 <span id="cb54-8"><a href="利用wgcna构建网络.html#cb54-8"></a></span>
 <span id="cb54-9"><a href="利用wgcna构建网络.html#cb54-9"></a><span class="kw">plot</span>(g, <span class="dt">layout =</span> l, <span class="dt">vertex.color =</span> graph_info_colors<span class="op">$</span>tax_color)</span>
 <span id="cb54-10"><a href="利用wgcna构建网络.html#cb54-10"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> tax_labels <span class="op">%&gt;%</span><span class="st"> </span>.[,<span class="dv">1</span>], <span class="dt">fill=</span>tax_labels<span class="op">$</span>tax_color)</span></code></pre></div>
-<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-38-1.png" width="1440" /></p>
+<p><img src="OMics-analysis-workflow_files/figure-html/unnamed-chunk-41-1.png" width="1440" /></p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="利用wgcna构建网络.html#cb55-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 </div>
 </div>
