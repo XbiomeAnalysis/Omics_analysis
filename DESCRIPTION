@@ -1,6 +1,0 @@
-Package: Omics Analysis
-Type: Book
-Title: Omics Analysis
-Version: 0.0.1
-Imports: bookdown
-Remotes: HuaZou/OmicsAnalysis
