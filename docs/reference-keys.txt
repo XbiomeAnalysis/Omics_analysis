@@ -82,7 +82,6 @@ step2
 step3
 run-halla
 result-of-halla
-halla-result-after-wgcna
 netcomi
 introduction-2
 association-measures
